@@ -1,0 +1,26 @@
+.section-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 127px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border: 1px solid;
+  @media (max-width: 955px) {
+    margin-top: 197px;
+  }
+  .weather-template-container {
+    display: grid;
+    grid-template-rows: 1fr 2fr 1fr;
+    width: 610px;
+    min-height: 250px;
+    border: 1px solid;
+    border-radius: 7px;
+    margin-top: 20px;
+    @media (max-width: 640px) {
+      width: 340px;
+    }
+  }
+}

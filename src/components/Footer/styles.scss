@@ -1,0 +1,15 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  background-color: #8b97b6;
+  box-shadow: 0 0 5px #000000;
+  //transition: bottom 200ms ease-in-out;
+}
+/*
+.footer.hidden {
+  bottom: -30px;
+}*/

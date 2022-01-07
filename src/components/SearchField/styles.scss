@@ -1,0 +1,10 @@
+.search-container {
+  height: 60px;
+  background-color: #539f62;
+  @media (min-width: 956px) {
+    grid-area: 1 / 2 / auto / auto;
+  }
+  @media (max-width: 955px) {
+    grid-area: 2 / 1 / auto / 4;
+  }
+}
