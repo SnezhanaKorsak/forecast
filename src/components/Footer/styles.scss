@@ -5,8 +5,23 @@
   height: 30px;
   text-align: center;
   line-height: 30px;
-  background-color: #8b97b6;
   box-shadow: 0 0 5px #000000;
+  background: -webkit-linear-gradient(
+    90deg,
+    #d6d5da,
+    #a6b0b9,
+    #a6b0b9,
+    #a6b0b9,
+    #d5d5dd
+  );
+  background: linear-gradient(
+    90deg,
+    #d6d5da,
+    #a6b0b9,
+    #a6b0b9,
+    #a6b0b9,
+    #d5d5dd
+  );
   //transition: bottom 200ms ease-in-out;
 }
 /*

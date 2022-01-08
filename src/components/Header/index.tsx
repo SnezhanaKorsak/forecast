@@ -9,6 +9,7 @@ import CurrentWeatherConditions from "../CurrentWeatherConditions";
 const Header = ({ title }: IHeaderProps) => {
   return (
     <header className="header">
+      <div className="background-img" />
       <div className="root-container">
         <div className="top-container">
           <CurrentTemperature />

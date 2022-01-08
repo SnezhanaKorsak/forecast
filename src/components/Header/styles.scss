@@ -2,10 +2,39 @@
   width: 100%;
   position: fixed;
   top: 0;
-  background-color: #8b97b6;
+  background: -webkit-linear-gradient(
+    90deg,
+    #d6d5da,
+    #a6b0b9,
+    #a6b0b9,
+    #a6b0b9,
+    #d5d5dd
+  );
+  background: linear-gradient(
+    90deg,
+    #d6d5da,
+    #a6b0b9,
+    #a6b0b9,
+    #a6b0b9,
+    #d5d5dd
+  );
   box-shadow: 0 0 5px #000000;
-
+  .background-img {
+    position: absolute;
+    width: 100%;
+    height: 127px;
+    background-image: url("../../assets/images/cloudy.jpeg");
+    background-size: cover;
+    background-position: center;
+    opacity: 70%;
+    z-index: 10;
+    @media (max-width: 955px) {
+      height: 197px;
+    }
+  }
   .root-container {
+    position: relative;
+    z-index: 20;
     width: 100%;
     margin: auto;
     border: 1px solid white;

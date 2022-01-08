@@ -1,0 +1,36 @@
+.favourites-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 30%;
+  height: 100vh;
+  z-index: 70;
+  background: #a19c9c;
+
+  .favourites-content {
+    padding: 20px;
+
+    .favourites-header {
+      position: relative;
+      width: 100%;
+      height: 27px;
+      border: 1px solid;
+
+      .exit-btn {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 25px;
+        height: 25px;
+        border: none;
+        cursor: pointer;
+        font-size: 1.5em;
+        background: #1a73e8;
+      }
+      .exit-btn:hover {
+        background: #cf031d;
+        color: white;
+      }
+    }
+  }
+}

@@ -7,18 +7,19 @@
   margin-top: 127px;
   margin-bottom: 30px;
   padding-bottom: 20px;
-  border: 1px solid;
   @media (max-width: 955px) {
     margin-top: 197px;
   }
   .weather-template-container {
     display: grid;
-    grid-template-rows: 1fr 2fr 1fr;
+    grid-template-rows: 1fr 4fr 1fr;
     width: 610px;
-    min-height: 250px;
+    min-height: 270px;
     border: 1px solid;
     border-radius: 7px;
     margin-top: 20px;
+    box-shadow: 10px 14px 28px rgba(0, 0, 0, 0.25),
+      5px 10px 10px rgba(0, 0, 0, 0.22);
     @media (max-width: 640px) {
       width: 340px;
     }
