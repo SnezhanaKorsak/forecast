@@ -5,6 +5,7 @@ import FavouriteItem from "./FavouriteItem";
 
 const FavouritesMenu: React.FC<IFavoritesMenuProps> = (props) => {
   const { setActive } = props;
+  //const finalClassName = active ? 'favourites-container enter-active' : "favourites-container"
 
   return (
     <div className="favourites-container">

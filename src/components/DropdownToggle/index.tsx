@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Transition, CSSTransition } from "react-transition-group";
 import "./styles.scss";
 import FavoritesMenu from "../FavouritesMenu";
 
@@ -12,7 +13,15 @@ const DropdownToggle = () => {
       <button className="favourites-open-btn" onClick={onActiveMode}>
         <span />
       </button>
-      {activeMode && <FavoritesMenu setActive={setActiveMode} />}
+      <CSSTransition
+        in={activeMode}
+        timeout={{ enter: 300, exit: 2000 }}
+        classNames="favourites-container"
+        unmountOnExit
+      >
+        <FavoritesMenu setActive={setActiveMode} />
+      </CSSTransition>
+      {/*<FavoritesMenu active={activeMode} setActive={setActiveMode} />*/}
     </div>
   );
 };
