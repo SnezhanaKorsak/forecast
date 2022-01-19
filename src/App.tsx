@@ -1,15 +1,22 @@
 import React from "react";
-import "./App.css";
+import "./App.scss";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import WeatherTemplate from "./components/WeatherTemplate";
 
 function App() {
+  // useEffect(() => {
+  //   navigator.geolocation.getCurrentPosition((res) => {
+  //     debugger;
+  //   });
+  // }, []);
   return (
-    <div className="page-content">
+    <div className="wrapper">
       <Header />
-      <WeatherTemplate />
-      <Footer />
+      <div className="section-container">
+        <WeatherTemplate />
+        <Footer />
+      </div>
     </div>
   );
 }

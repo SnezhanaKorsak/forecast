@@ -1,4 +1,6 @@
-.favourites-open-btn {
+@import "../../sass/variables";
+
+.toggle-btn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,17 +10,25 @@
   width: 40px;
   height: 40px;
   background-color: transparent;
-  margin: 0 5px 0 5px;
-
-  span {
-    display: block;
+  @media (max-width: $phoneScreen) {
     width: 30px;
     height: 30px;
-    background-image: url("../../assets/images/star.ico");
+  }
+
+  &:hover {
+    background-color: $bqcHoverColor;
+  }
+
+  .star-icon {
+    display: block;
+    width: 35px;
+    height: 35px;
+    background-image: url("../../assets/images/star_border_black_48dp.svg");
     background-size: cover;
     background-repeat: no-repeat;
+    @media (max-width: $phoneScreen) {
+      width: 25px;
+      height: 25px;
+    }
   }
-}
-.favourites-open-btn:hover {
-  background-color: rgba(215, 215, 215, 0.25);
 }

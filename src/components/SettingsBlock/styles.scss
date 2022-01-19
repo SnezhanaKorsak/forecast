@@ -1,11 +1,14 @@
+@import "../../sass/variables";
+
 .settings-block {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
   grid-area: 1 / 3 / auto / auto;
-  justify-self: end;
-  width: 200px;
   height: 60px;
-  background-color: #9f7553;
+  @media (max-width: $phoneScreen) {
+    flex-direction: column;
+    justify-content: space-between;
+  }
 }

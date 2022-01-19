@@ -1,0 +1,22 @@
+//size
+$phoneScreen: 479px;
+$tableScreen: 769px;
+$desktopScreen: 995px;
+
+//color
+$bqcHoverColor: rgba(215, 215, 215, 0.25);
+$bqcFooterColor: linear-gradient(
+  90deg,
+  #d6d5da,
+  #a6b0b9,
+  #a6b0b9,
+  #a6b0b9,
+  #d5d5dd
+);
+$bqcColor: rgba(84, 98, 121, 0.4);
+
+//shadow
+$lineShadow: 0 0 5px #000;
+$boxShadowPanel: 10px 14px 28px rgba(0, 0, 0, 0.25),
+  5px 10px 10px rgba(0, 0, 0, 0.22);
+$boxShadow: 0 1px 0 3px rgba(40, 42, 49, 0.3);

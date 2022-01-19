@@ -6,12 +6,10 @@ import WeatherNav from "./WeatherNav";
 
 const WeatherTemplate = () => {
   return (
-    <div className="section-container">
-      <div className="weather-template-container">
-        <CityWeather />
-        <ForecastTable />
-        <WeatherNav />
-      </div>
+    <div className="weather-template-container">
+      <CityWeather />
+      <ForecastTable />
+      <WeatherNav />
     </div>
   );
 };

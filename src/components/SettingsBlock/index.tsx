@@ -1,15 +1,13 @@
 import React from "react";
 import "./styles.scss";
 import DropdownToggle from "../DropdownToggle";
-import Settings from "../Settings";
-import TemperatureToggle from "../TemperatureToggle";
+import SettingsToggle from "./SettingsToggle";
 
 const SettingBlock = () => {
   return (
     <div className="settings-block">
-      <TemperatureToggle />
       <DropdownToggle />
-      <Settings />
+      <SettingsToggle />
     </div>
   );
 };

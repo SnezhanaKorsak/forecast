@@ -1,0 +1,55 @@
+@import "../../sass/mixins";
+@import "../../sass/variables";
+
+.conditions-content {
+  display: flex;
+  color: #fff;
+  justify-content: space-between;
+
+  //.weather-description {
+  //  @include text(1rem, 2.2rem, 600);
+  //  background: $bqcColor;
+  //  border-radius: 5px;
+  //  text-align: center;
+  //  padding: 5px 10px;
+  //  margin: 0 10px 10px 0;
+  //  box-shadow: $boxShadow;
+  //  //margin-right: 30px;
+  //
+  //
+  //  &::first-letter {
+  //    text-transform: uppercase;
+  //  }
+  //}
+
+  .summary-caption-container {
+    @include text(0.9rem, 1rem, 400);
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    background: $bqcColor;
+    border-radius: 5px;
+    padding: 5px 7px;
+    margin: 0 15px 10px 0;
+    box-shadow: $boxShadow;
+
+    .weather-description {
+      margin-right: 10px;
+      &::first-letter {
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  .conditions-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 125%;
+    //width: 340px;
+    @media (min-width: $tableScreen) {
+      width: 600px;
+      margin-right: 0;
+    }
+  }
+}

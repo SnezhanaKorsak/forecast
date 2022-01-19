@@ -1,4 +1,3 @@
-export interface IFavoritesMenuProps {
-  active?: boolean;
+export interface FavoritesMenuProps {
   setActive: (active: boolean) => void;
 }

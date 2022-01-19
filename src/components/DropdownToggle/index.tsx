@@ -1,27 +1,21 @@
 import React, { useState } from "react";
-import { Transition, CSSTransition } from "react-transition-group";
 import "./styles.scss";
-import FavoritesMenu from "../FavouritesMenu";
+import { FavouritesMenu } from "../FavouritesMenu";
+import Sidebar from "../Sidebar";
 
 const DropdownToggle = () => {
-  const [activeMode, setActiveMode] = useState(false);
+  const [activeMode, setActiveMode] = useState<boolean>(false);
 
   const onActiveMode = () => setActiveMode(!activeMode);
 
   return (
     <div>
-      <button className="favourites-open-btn" onClick={onActiveMode}>
-        <span />
+      <button className="toggle-btn" onClick={onActiveMode}>
+        <span className="star-icon" />
       </button>
-      <CSSTransition
-        in={activeMode}
-        timeout={{ enter: 300, exit: 2000 }}
-        classNames="favourites-container"
-        unmountOnExit
-      >
-        <FavoritesMenu setActive={setActiveMode} />
-      </CSSTransition>
-      {/*<FavoritesMenu active={activeMode} setActive={setActiveMode} />*/}
+      <Sidebar active={activeMode} setActive={setActiveMode}>
+        <FavouritesMenu setActive={setActiveMode} />
+      </Sidebar>
     </div>
   );
 };

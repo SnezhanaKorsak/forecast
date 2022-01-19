@@ -1,0 +1,14 @@
+@import "../../../sass/mixins";
+@import "../../../sass/variables";
+
+.condition {
+  @include text(12px, 20px, 400);
+  width: 100px;
+  min-height: 40px;
+  background: $bqcColor;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  box-shadow: $boxShadow;
+  //border: 1px solid white;
+}

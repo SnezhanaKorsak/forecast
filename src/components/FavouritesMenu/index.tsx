@@ -1,25 +1,15 @@
 import React from "react";
-import "./styles.scss";
-import { IFavoritesMenuProps } from "./types";
+import { FavoritesMenuProps } from "./types";
 import FavouriteItem from "./FavouriteItem";
+import { SidebarHeader } from "../Sidebar/SidebarHeader";
 
-const FavouritesMenu: React.FC<IFavoritesMenuProps> = (props) => {
-  const { setActive } = props;
-  //const finalClassName = active ? 'favourites-container enter-active' : "favourites-container"
-
+export const FavouritesMenu: React.FC<FavoritesMenuProps> = ({ setActive }) => {
   return (
-    <div className="favourites-container">
-      <div className="favourites-content">
-        <div className="favourites-header">
-          Favourites:
-          <button className="exit-btn" onClick={() => setActive(false)}>
-            ×
-          </button>
-        </div>
-        <FavouriteItem />
-      </div>
-    </div>
+    <>
+      <SidebarHeader setActive={setActive}>
+        <span>Favourites:</span>
+      </SidebarHeader>
+      <FavouriteItem />
+    </>
   );
 };
-
-export default FavouritesMenu;

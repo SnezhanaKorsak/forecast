@@ -1,0 +1,16 @@
+@import "../../../sass/variables";
+
+.toggle-btn {
+  .burger-icon {
+    display: block;
+    width: 35px;
+    height: 35px;
+    background-image: url("../../../assets/images/menu_black_48dp.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    @media (max-width: $phoneScreen) {
+      width: 25px;
+      height: 25px;
+    }
+  }
+}

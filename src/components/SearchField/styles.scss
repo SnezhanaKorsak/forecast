@@ -1,10 +1,18 @@
+@import "../../sass/variables";
+
 .search-container {
   height: 60px;
-  background-color: #539f62;
-  @media (min-width: 956px) {
-    grid-area: 1 / 2 / auto / auto;
-  }
-  @media (max-width: 955px) {
+  width: 100%;
+  grid-area: 1 / 2 / auto / auto;
+  background-color: $bqcColor;
+  box-shadow: $boxShadowPanel;
+  border-radius: 5px;
+  //border: 1px solid #546279;
+  padding: 10px;
+
+  @media (max-width: $desktopScreen) {
     grid-area: 2 / 1 / auto / 4;
+    width: auto;
+    margin-top: -5px;
   }
 }

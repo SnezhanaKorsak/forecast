@@ -1,12 +1,11 @@
 import React from "react";
-import CurrentTemperature from "../CurrentTemperature";
+import CurrentTemperature from "../CurrentWeather";
 import SearchField from "../SearchField";
 import SettingBlock from "../SettingsBlock";
-import "./styles.scss";
-import { IHeaderProps } from "./types";
 import CurrentWeatherConditions from "../CurrentWeatherConditions";
+import "./styles.scss";
 
-const Header = ({ title }: IHeaderProps) => {
+const Header = () => {
   return (
     <header className="header">
       <div className="background-img" />

@@ -1,27 +1,15 @@
-.section-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin-top: 127px;
-  margin-bottom: 30px;
-  padding-bottom: 20px;
-  @media (max-width: 955px) {
-    margin-top: 197px;
-  }
-  .weather-template-container {
-    display: grid;
-    grid-template-rows: 1fr 4fr 1fr;
-    width: 610px;
-    min-height: 270px;
-    border: 1px solid;
-    border-radius: 7px;
-    margin-top: 20px;
-    box-shadow: 10px 14px 28px rgba(0, 0, 0, 0.25),
-      5px 10px 10px rgba(0, 0, 0, 0.22);
-    @media (max-width: 640px) {
-      width: 340px;
-    }
+@import "../../sass/variables";
+
+.weather-template-container {
+  display: grid;
+  grid-template-rows: 1fr 4fr 1fr;
+  width: 610px;
+  min-height: 270px;
+  border: 1px solid lightgray;
+  border-radius: 7px;
+  margin-top: 25px;
+  box-shadow: $boxShadowPanel;
+  @media (max-width: $tableScreen) {
+    width: 320px;
   }
 }
