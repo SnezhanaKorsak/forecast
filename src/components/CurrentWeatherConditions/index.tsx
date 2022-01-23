@@ -1,11 +1,12 @@
 import React from "react";
 import "./styles.scss";
+import { ConditionItem } from "./ConditionItem";
+import { ConditionsType } from "./ConditionItem/types";
 import { useSelector } from "react-redux";
 import { AppRootStateType } from "../../state/store";
 import { GetWeatherResponseType } from "../../api/weather-api/types";
-import { ConditionItem } from "./ConditionItem";
-import { ConditionsType } from "./ConditionItem/types";
 import { Temperature } from "../Temperature";
+import TemperatureToggle from "../TemperatureToggle";
 
 const CurrentWeatherConditions = () => {
   const currentWeather = useSelector<
@@ -21,7 +22,8 @@ const CurrentWeatherConditions = () => {
     (state) => state.units.windUnits
   );
   const humidity = currentWeather && currentWeather.main.humidity;
-  const visibility = currentWeather && currentWeather.visibility / 1000;
+  const visibility =
+    currentWeather && +(currentWeather.visibility / 1000).toFixed(1);
   const pressure = currentWeather && currentWeather.main.pressure;
   const cloudiness = currentWeather && currentWeather.clouds.all;
 
@@ -40,31 +42,23 @@ const CurrentWeatherConditions = () => {
       units={m.units}
     />
   ));
-
   return (
-    <div className="conditions-content">
+    <>
       <div className="summary-caption-container">
-        <div className="weather-description">{weatherDescription}</div>
-        <span>Feels like: </span>
-        <Temperature
-          temperatureInKelvin={temperatureFeelsLike}
-          role="-feelsLike"
-        />
+        <div className="summary-content">
+          <div className="weather-description">{weatherDescription}</div>
+          <span>Feels like: </span>
+          <Temperature
+            temperatureInKelvin={temperatureFeelsLike}
+            role="-feelsLike"
+          />
+        </div>
       </div>
-      {/*<div className="weather-description">*/}
-      {/*    {weatherDescription}*/}
-      {/*    <div>FEELS LIKE</div>*/}
-      {/*    <Temperature temperatureInKelvin={temperatureFeelsLike} role='-feelsLike'/>*/}
-      {/*</div>*/}
-
       <div className="conditions-items">
         {conditionItem}
-        {/*<div className="condition">*/}
-        {/*    <p>FEELS LIKE</p>*/}
-        {/*    <Temperature temperatureInKelvin={temperatureFeelsLike} role={'-feelsLike'}/>*/}
-        {/*</div>*/}
+        <TemperatureToggle />
       </div>
-    </div>
+    </>
   );
 };
 

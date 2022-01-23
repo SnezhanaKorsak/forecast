@@ -1,5 +1,5 @@
 import React from "react";
-import CurrentTemperature from "../CurrentWeather";
+import CurrentWeather from "../CurrentWeather";
 import SearchField from "../SearchField";
 import SettingBlock from "../SettingsBlock";
 import CurrentWeatherConditions from "../CurrentWeatherConditions";
@@ -11,7 +11,7 @@ const Header = () => {
       <div className="background-img" />
       <div className="root-container">
         <div className="top-container">
-          <CurrentTemperature />
+          <CurrentWeather />
           <SearchField />
           <SettingBlock />
         </div>

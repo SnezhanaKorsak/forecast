@@ -1,0 +1,31 @@
+@import "../../sass/mixins";
+@import "../../sass/variables";
+
+.switch {
+  .track {
+    display: inline-block;
+    width: 100px;
+    height: 35px;
+    border-radius: 7px;
+    background: rgba(171, 172, 192, 0.5);
+    transition: background 1000ms;
+
+    .thumb {
+      display: inline-block;
+      width: 35px;
+      border-radius: 7px;
+      background: #465774;
+      text-align: center;
+      line-height: 35px;
+      transition: transform 400ms;
+    }
+  }
+
+  input:checked + .track {
+    background: rgba(54, 66, 86, 0.95);
+
+    .thumb {
+      transform: translateX(66px);
+    }
+  }
+}

@@ -4,12 +4,12 @@
   @include text(2.8rem, 0, 600);
   display: flex;
   align-items: center;
+  width: 120px;
   margin: 0 10px 0 -10px;
 
   .unit {
     position: relative;
     top: -5px;
-    z-index: 1;
     @include text(1.3rem, 0, 400);
   }
 }
@@ -18,12 +18,12 @@
   @include text(0.9rem, 1.6rem, 400);
   display: inline-flex;
   align-items: center;
+  width: 30px;
   margin-left: 5px;
 
   .unit {
     position: relative;
     top: -2px;
-    z-index: 1;
     margin-left: 2px;
     @include text(0.7rem, 0, 400);
   }

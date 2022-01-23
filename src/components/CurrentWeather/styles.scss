@@ -5,8 +5,9 @@
   display: flex;
   flex-flow: row wrap;
   align-items: center;
+  width: 100%;
   grid-area: 1 / 1 / auto / auto;
-  color: #fff;
+  margin-top: -10px;
   @media (max-width: $phoneScreen) {
     grid-area: 1 / 1 / auto / 3;
   }
@@ -27,33 +28,15 @@
   }
 
   .overview-weather-container {
-    flex-grow: 1;
     display: flex;
     flex-direction: row;
+    width: 30%;
 
     .weather-icon {
-      margin-left: -15px;
       @media (max-width: $phoneScreen) {
-        width: 50%;
+        width: 100%;
+        margin-left: -10px;
       }
     }
   }
-
-  //.summary-caption-container {
-  //  flex-grow: 1;
-  //  width: 30%;
-  //  @include text(0.9rem, 1.6rem, 400);
-  //
-  //  .weather-description {
-  //    @include text(1rem, 1.1rem, 600);
-  //
-  //    &::first-letter {
-  //      text-transform: uppercase;
-  //    }
-  //  }
-  //
-  //  .temp-feelsLikes {
-  //    @include text(0.5rem, 0, 600);
-  //  }
-  //}
 }

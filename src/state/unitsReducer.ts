@@ -1,17 +1,17 @@
-import { SettingActionsType } from "./actionsTypes";
+import { UnitsActionsType } from "./actionsTypes";
 
 type InitialStateType = {
-  temperatureUnits: "Celsius" | "Fahrenheit";
+  temperatureUnits: "°C" | "°F";
   windUnits: "m/s" | "km/h";
 };
 const initialState: InitialStateType = {
-  temperatureUnits: "Celsius",
+  temperatureUnits: "°C",
   windUnits: "m/s",
 };
 
 export const unitsReducer = (
   state = initialState,
-  action: SettingActionsType
+  action: UnitsActionsType
 ): InitialStateType => {
   switch (action.type) {
     case "CHANGE-TEMPERATURE-UNITS":
@@ -22,7 +22,7 @@ export const unitsReducer = (
   }
 };
 
-export const changeTemperatureUnits = (value: "Celsius" | "Fahrenheit") => {
+export const changeTemperatureUnits = (value: "°C" | "°F") => {
   return {
     type: "CHANGE-TEMPERATURE-UNITS",
     value,

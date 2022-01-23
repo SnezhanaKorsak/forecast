@@ -3,13 +3,13 @@
 .weather-template-container {
   display: grid;
   grid-template-rows: 1fr 4fr 1fr;
-  width: 610px;
+  width: 575px;
   min-height: 270px;
   border: 1px solid lightgray;
   border-radius: 7px;
-  margin-top: 25px;
+  margin: 15px auto;
   box-shadow: $boxShadowPanel;
   @media (max-width: $tableScreen) {
-    width: 320px;
+    width: 340px;
   }
 }

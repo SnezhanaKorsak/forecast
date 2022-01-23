@@ -13,21 +13,17 @@ export const Temperature: React.FC<TemperatureProps> = ({
   );
 
   let temperature = temperatureInKelvin;
-  console.log(temperature);
 
-  if (temperatureUnits === "Celsius" && temperatureInKelvin) {
+  if (temperatureUnits === "°C" && temperatureInKelvin) {
     temperature = Math.round(temperatureInKelvin - 273.15);
   } else if (temperatureInKelvin) {
     temperature = Math.round(((temperatureInKelvin - 273.15) * 9) / 5 + 32);
   }
 
-  const units = temperatureUnits === "Celsius" ? "°C" : "°F";
-
   return (
     <div className={`temp${role}`}>
       {temperature}
-      {/*<span className={`unit${role}`}>{units}</span>*/}
-      <span className="unit">{units}</span>
+      <span className="unit">{temperatureUnits}</span>
     </div>
   );
 };

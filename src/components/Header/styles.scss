@@ -6,6 +6,7 @@
   top: 0;
   background: #191919;
   box-shadow: $lineShadow;
+
   .background-img {
     position: absolute;
     width: 100%;
@@ -16,6 +17,7 @@
     opacity: 75%;
     z-index: 10;
   }
+
   .root-container {
     position: relative;
     z-index: 20;
@@ -32,19 +34,27 @@
       display: grid;
       grid-column: 1 / auto;
       grid-row: 1 / auto;
-      grid-template-columns: repeat(3, auto);
+      //grid-template-columns: repeat(3, auto);
+      grid-template-columns: 1.4fr 2fr 0.6fr;
       align-items: center;
-      //gap: 10px;
       padding-top: 5px;
       margin-bottom: 10px;
-      @media (max-width: $phoneScreen) {
+      @media (max-width: $tableScreen) {
         grid-template-columns: repeat(2, auto);
       }
     }
 
     .weather-conditions-container {
       grid-column: 1 / auto;
-      //margin-bottom: 10px;
+      display: grid;
+      //grid-template-columns: repeat(2, auto);
+      grid-template-columns: 1.37fr 2.63fr;
+      @media (max-width: 1090px) {
+        grid-template-columns: 0.5fr 3fr;
+      }
+      @media (max-width: $phoneScreen) {
+        grid-template-columns: 110px 2fr;
+      }
     }
   }
 }

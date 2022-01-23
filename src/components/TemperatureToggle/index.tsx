@@ -1,8 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles.scss";
+import { Toggle } from "../../common/Toggle";
+import { useDispatch, useSelector } from "react-redux";
+import { AppRootStateType } from "../../state/store";
+import { changeTemperatureUnits } from "../../state/unitsReducer";
 
 const TemperatureToggle = () => {
-  return <div className="temp-toggle-container">TemperatureToggle</div>;
+  const dispatch = useDispatch();
+  const temperatureUnits = useSelector<AppRootStateType, string>(
+    (state) => state.units.temperatureUnits
+  );
+
+  const [inCelsius, setInCelsius] = useState(false);
+
+  const changeTempUnits = () => {
+    setInCelsius(!inCelsius);
+    inCelsius
+      ? dispatch(changeTemperatureUnits("°C"))
+      : dispatch(changeTemperatureUnits("°F"));
+  };
+
+  return (
+    <div className="temp-toggle-container">
+      <Toggle title={temperatureUnits} callback={changeTempUnits} />
+    </div>
+  );
 };
 
 export default TemperatureToggle;

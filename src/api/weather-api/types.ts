@@ -48,6 +48,7 @@ export interface GetWeatherResponseType {
   name: string;
   cod: number;
 }
+
 export interface GetForecastResponseType {
   lat: number;
   lon: number;

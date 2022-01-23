@@ -1,18 +1,61 @@
 @import "../../sass/variables";
+@import "../../sass/mixins";
 
 .search-container {
+  display: flex;
+  flex-direction: column;
   height: 60px;
-  width: 100%;
-  grid-area: 1 / 2 / auto / auto;
+  width: 575px;
   background-color: $bqcColor;
+  grid-area: 1 / 2 / auto / auto;
   box-shadow: $boxShadowPanel;
   border-radius: 5px;
-  //border: 1px solid #546279;
-  padding: 10px;
+  padding: 5px 10px 5px 10px;
 
   @media (max-width: $desktopScreen) {
     grid-area: 2 / 1 / auto / 4;
     width: auto;
     margin-top: -5px;
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    & button {
+      @include text(0.8rem, 1.5em, 600);
+      width: 30%;
+      height: 23px;
+      font-family: "Open Sans", sans-serif;
+      color: #fff;
+      border-radius: 5px;
+      background: rgba(171, 172, 192, 0.5);
+      text-align: center;
+      margin-bottom: 4px;
+      cursor: pointer;
+    }
+  }
+
+  .input-button-group {
+    display: flex;
+    justify-content: space-between;
+    .input-group {
+      width: 65%;
+      & input {
+        width: 100%;
+        outline: none;
+      }
+    }
+    & button {
+      @include text(0.8rem, 1.5em, 600);
+      width: 30%;
+      height: 23px;
+      font-family: "Open Sans", sans-serif;
+      color: #fff;
+      border-radius: 5px;
+      background: rgba(171, 172, 192, 0.5);
+      text-align: center;
+      margin-bottom: 4px;
+      cursor: pointer;
+    }
   }
 }

@@ -29,6 +29,5 @@ export const weatherAPI = {
   },
   getWeatherIcon(path: string) {
     return `https://openweathermap.org/img/wn/${path}@2x.png`;
-    //return `https://openweathermap.org/img/wn/13d@2x.png`
   },
 };

@@ -1,4 +1,4 @@
-interface FeaturesType {
+export interface FeaturesType {
   id: string;
   place_type: string[];
   relevance: number;

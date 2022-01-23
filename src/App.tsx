@@ -5,11 +5,6 @@ import Footer from "./components/Footer";
 import WeatherTemplate from "./components/WeatherTemplate";
 
 function App() {
-  // useEffect(() => {
-  //   navigator.geolocation.getCurrentPosition((res) => {
-  //     debugger;
-  //   });
-  // }, []);
   return (
     <div className="wrapper">
       <Header />

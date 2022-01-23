@@ -2,13 +2,14 @@ import React, { useEffect } from "react";
 import "./styles.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchWeatherData } from "../../state/currentWeatherReducer";
+import { fetchCityName } from "../../state/locationReducer";
 import { AppRootStateType } from "../../state/store";
 import { GetWeatherResponseType } from "../../api/weather-api/types";
-import { fetchCityName } from "../../state/locationReducer";
 import { Temperature } from "../Temperature";
 
-const CurrentTemperature = () => {
+const CurrentWeather = () => {
   const dispatch = useDispatch();
+
   const currentWeather = useSelector<
     AppRootStateType,
     GetWeatherResponseType | null
@@ -49,4 +50,4 @@ const CurrentTemperature = () => {
   );
 };
 
-export default CurrentTemperature;
+export default CurrentWeather;
