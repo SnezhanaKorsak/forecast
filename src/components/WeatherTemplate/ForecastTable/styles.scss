@@ -1,0 +1,15 @@
+@import "../../../sass/variables";
+
+.table-container {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 10px;
+  color: black;
+
+  @media (max-width: $desktopScreen) {
+    justify-content: flex-start;
+  }
+}

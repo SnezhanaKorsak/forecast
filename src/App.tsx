@@ -9,10 +9,9 @@ function App() {
     <div className="wrapper">
       <Header />
       <div className="section-container">
-        <div className="section-background" />
         <WeatherTemplate />
-        <Footer />
       </div>
+      <Footer />
     </div>
   );
 }

@@ -39,13 +39,13 @@ export interface DailyForecastType {
   wind_speed: number;
   wind_deg: number;
   wind_gust: number;
-  weather: WeatherType[];
+  weather: WeatherType;
   clouds: number;
 }
 
 export interface CurrentForecastType {
   dt: number;
-  temp: TempForecastType;
+  temp: number;
   feels_like: number;
   pressure: number;
   humidity: number;
@@ -78,5 +78,5 @@ export interface LocationForecastType {
   lon: number;
   timezone: string;
   current: CurrentForecastType;
-  daily: DailyForecastType;
+  daily: DailyForecastType[];
 }

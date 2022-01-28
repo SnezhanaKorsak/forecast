@@ -1,7 +1,35 @@
 @import "../../../sass/variables";
 
 .nav-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px;
   border-radius: 0 0 7px 7px;
   box-shadow: $lineShadow;
   background: $bqcColor;
+
+  .nav-link {
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+
+    & a {
+      display: block;
+      width: 60px;
+      height: 30px;
+      border-radius: 5px;
+      background: #465774;
+      padding: 0 5px 0 5px;
+      text-decoration: none;
+      color: white;
+      text-align: center;
+      line-height: 30px;
+
+      &:hover {
+        cursor: pointer;
+        background: #5e5c5c;
+      }
+    }
+  }
 }

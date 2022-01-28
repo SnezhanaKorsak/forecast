@@ -1,0 +1,26 @@
+@import "../../../../sass/variables";
+@import "../../../../sass/mixins";
+
+.forecast-item {
+  width: 120px;
+  height: 120px;
+  background: rgba(84, 98, 121, 0.4);
+  border: 1px solid #465873;
+  border-radius: 5px;
+  margin: 5px;
+  color: #28374e;
+  padding: 5px;
+
+  &.active {
+    border: 3px solid #465873;
+  }
+
+  .date-label {
+    @include text(0.9em, 1em, 600);
+  }
+
+  @media (max-width: $tableScreen) {
+    width: 90px;
+    height: 90px;
+  }
+}
