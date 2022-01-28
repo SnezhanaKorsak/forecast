@@ -1,5 +1,4 @@
 import React from "react";
-import "./styles.scss";
 import { CustomSelectProps } from "./types";
 
 export const CustomSelect: React.FC<CustomSelectProps> = ({ options }) => {
@@ -7,13 +6,5 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({ options }) => {
     <option key={options.id}>{options.place_name}</option>
   ));
 
-  // const onChangeOption = (e: React.FormEvent<HTMLDataListElement>) => {
-  //    alert(e.currentTarget.options)
-  // }
-
-  return (
-    <datalist id="select" /*onChange={onChangeOption}*/>
-      {mappedOptions}
-    </datalist>
-  );
+  return <datalist id="select">{mappedOptions}</datalist>;
 };

@@ -44,7 +44,9 @@ const CurrentWeather = () => {
       </div>
       <div className="overview-weather-container">
         <img className="weather-icon" src={icon} alt="icon" />
-        <Temperature temperatureInKelvin={temperature} role="-current" />
+        {temperature && (
+          <Temperature temperatureInKelvin={temperature} role="-current" />
+        )}
       </div>
     </div>
   );

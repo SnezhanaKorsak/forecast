@@ -35,11 +35,11 @@
       grid-column: 1 / auto;
       grid-row: 1 / auto;
       //grid-template-columns: repeat(3, auto);
-      grid-template-columns: 1.4fr 2fr 0.6fr;
+      grid-template-columns: 1.5fr 2fr 1.5fr;
       align-items: center;
       padding-top: 5px;
       margin-bottom: 10px;
-      @media (max-width: $tableScreen) {
+      @media (max-width: $desktopScreen) {
         grid-template-columns: repeat(2, auto);
       }
     }
@@ -48,9 +48,9 @@
       grid-column: 1 / auto;
       display: grid;
       //grid-template-columns: repeat(2, auto);
-      grid-template-columns: 1.37fr 2.63fr;
-      @media (max-width: 1090px) {
-        grid-template-columns: 0.5fr 3fr;
+      grid-template-columns: 1.7fr 3.5fr;
+      @media (max-width: 1550px) {
+        grid-template-columns: 1.3fr 3.5fr;
       }
       @media (max-width: $phoneScreen) {
         grid-template-columns: 110px 2fr;

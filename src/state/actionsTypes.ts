@@ -4,7 +4,8 @@ import {
   setWeatherIcon,
 } from "./currentWeatherReducer";
 import { changeTemperatureUnits } from "./unitsReducer";
-import { setLocations } from "./locationReducer";
+import { setSelectedLocation } from "./locationReducer";
+import { addForecastPanel, removeForecastPanel } from "./forecastReducer";
 
 export type WeatherActionsTypes =
   | SetCurrentWeatherDataActionType
@@ -12,18 +13,29 @@ export type WeatherActionsTypes =
 export type LocationActionsTypes =
   | SetCurrentCityActionType
   | SetLocationsActionType;
-export type UnitsActionsType = ChangeTemperatureUnitsActionType;
 
-//for WeatherActionsTypes
+export type UnitsActionsType = ChangeTemperatureUnitsActionType;
+// export type SettingsActionsType = SetParamsSearchActionType;
+export type ForecastActionsType =
+  | AddForecastPanelActionType
+  | RemoveForecastPanelActionType;
+
+// for WeatherActionsTypes
 type SetCurrentWeatherDataActionType = ReturnType<typeof setCurrentWeatherData>;
 type SetWeatherIconActionType = ReturnType<typeof setWeatherIcon>;
 
-//for LocationActionsTypes
+// for LocationActionsTypes
 type SetCurrentCityActionType = ReturnType<typeof setCurrentCity>;
-//type SetCoordinatesActionType = ReturnType<typeof setCoordinates>;
-type SetLocationsActionType = ReturnType<typeof setLocations>;
+type SetLocationsActionType = ReturnType<typeof setSelectedLocation>;
 
-//for UnitsActionsType
+// for UnitsActionsType
 type ChangeTemperatureUnitsActionType = ReturnType<
   typeof changeTemperatureUnits
 >;
+
+// for SettingsActionsType
+//type SetParamsSearchActionType = ReturnType<typeof setParamsSearch>;
+
+// for ForecastActionsTypes
+type AddForecastPanelActionType = ReturnType<typeof addForecastPanel>;
+type RemoveForecastPanelActionType = ReturnType<typeof removeForecastPanel>;

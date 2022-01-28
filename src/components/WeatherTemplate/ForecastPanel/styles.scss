@@ -1,0 +1,40 @@
+@import "../../../sass/variables";
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+.weather-template-container {
+  display: grid;
+  grid-template-rows: 1fr 4fr 1fr;
+  width: 90%;
+  height: 350px;
+  border-radius: 7px;
+  margin-bottom: 20px;
+  box-shadow: $boxShadowPanel;
+  animation: fadeIn 600ms ease-in-out;
+
+  &.mod-hiding {
+    animation: fadeOut 600ms ease-in-out;
+  }
+
+  @media (min-width: $tableScreen) {
+    width: 60%;
+  }
+}

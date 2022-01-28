@@ -2,12 +2,12 @@ import React from "react";
 import { ButtonProps } from "./types";
 
 export const Button: React.FC<ButtonProps> = ({
-  className,
   callback,
   children,
+  disabled,
 }) => {
   return (
-    <button className={className} onClick={() => callback(false)}>
+    <button onClick={() => callback(false)} disabled={disabled}>
       {children}
     </button>
   );

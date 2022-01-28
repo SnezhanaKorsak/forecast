@@ -5,10 +5,10 @@ export interface WeatherType {
   icon: string;
 }
 
-export interface CoordinatesType {
-  lon: number;
+export type CoordinatesType = {
   lat: number;
-}
+  lon: number;
+};
 
 export interface MainType {
   temp: number;
@@ -32,6 +32,30 @@ export interface TempForecastType {
 export interface DailyForecastType {
   dt: number;
   temp: TempForecastType;
+  feels_like: TempForecastType;
+  pressure: number;
+  humidity: number;
+  dew_point: number;
+  wind_speed: number;
+  wind_deg: number;
+  wind_gust: number;
+  weather: WeatherType[];
+  clouds: number;
+}
+
+export interface CurrentForecastType {
+  dt: number;
+  temp: TempForecastType;
+  feels_like: number;
+  pressure: number;
+  humidity: number;
+  dew_point: number;
+  clouds: number;
+  visibility: number;
+  wind_speed: number;
+  wind_deg: number;
+  wind_gust: number;
+  weather: WeatherType[];
 }
 
 export interface GetWeatherResponseType {
@@ -49,11 +73,10 @@ export interface GetWeatherResponseType {
   cod: number;
 }
 
-export interface GetForecastResponseType {
+export interface LocationForecastType {
   lat: number;
   lon: number;
   timezone: string;
+  current: CurrentForecastType;
   daily: DailyForecastType;
-  humidity: number;
-  weather: WeatherType[];
 }

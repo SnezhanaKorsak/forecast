@@ -1,5 +1,7 @@
+@import "../../../sass/variables";
+
 .nav-container {
   border-radius: 0 0 7px 7px;
-  background-color: #d2a860;
-  border-top: 1px solid #a19c9c;
+  box-shadow: $lineShadow;
+  background: $bqcColor;
 }
