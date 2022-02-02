@@ -30,13 +30,19 @@
   .overview-weather-container {
     display: flex;
     flex-direction: row;
+    align-items: center;
     width: 30%;
 
     .weather-icon {
       @media (max-width: $phoneScreen) {
         width: 100%;
-        margin-left: -10px;
+        margin-left: -15px;
       }
+    }
+
+    .current-temp-container {
+      font-size: 3.2rem;
+      margin-left: -15px;
     }
   }
 }

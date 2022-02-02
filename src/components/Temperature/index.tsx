@@ -3,27 +3,30 @@ import "./styles.scss";
 import { TemperatureProps } from "./types";
 import { useSelector } from "react-redux";
 import { AppRootStateType } from "../../state/store";
+import { TemperatureUnit } from "../../state/unitsReducer";
 
-export const Temperature: React.FC<TemperatureProps> = ({
-  temperatureInKelvin,
-  role,
-}) => {
+const conversionToCelsius = (temperature: number) => {
+  return Math.round(temperature - 273.15);
+};
+const conversionToFahrenheit = (temperature: number) => {
+  return Math.round(((temperature - 273.15) * 9) / 5 + 32);
+};
+
+export const Temperature: React.FC<TemperatureProps> = ({ temperature }) => {
   const temperatureUnits = useSelector<AppRootStateType, string>(
     (state) => state.units.temperatureUnits
   );
 
-  let temperature = temperatureInKelvin;
-
-  if (temperatureUnits === "°C" && temperatureInKelvin) {
-    temperature = Math.round(temperatureInKelvin - 273.15);
-  } else if (temperatureInKelvin) {
-    temperature = Math.round(((temperatureInKelvin - 273.15) * 9) / 5 + 32);
+  if (temperatureUnits === TemperatureUnit.Celsius) {
+    temperature = conversionToCelsius(temperature);
+  } else {
+    temperature = conversionToFahrenheit(temperature);
   }
 
   return (
-    <div className={`temp${role}`}>
+    <div className="temp">
       {temperature}
-      <span className="unit">{temperatureUnits}</span>
+      <sup className="unit">{temperatureUnits}</sup>
     </div>
   );
 };

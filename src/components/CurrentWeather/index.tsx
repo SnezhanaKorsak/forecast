@@ -10,6 +10,15 @@ import { Temperature } from "../Temperature";
 const CurrentWeather = () => {
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((res) => {
+      const latitude = res.coords.latitude;
+      const longitude = res.coords.longitude;
+      dispatch(fetchWeatherData(latitude, longitude));
+      dispatch(fetchCityName(longitude, latitude));
+    });
+  }, []);
+
   const currentWeather = useSelector<
     AppRootStateType,
     GetWeatherResponseType | null
@@ -20,20 +29,16 @@ const CurrentWeather = () => {
   const cityName = useSelector<AppRootStateType, string>(
     (state) => state.location.currentCity
   );
+
+  if (currentWeather === null) {
+    return null;
+  }
+
   const time = new Date().toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
   });
   const temperature = currentWeather && currentWeather?.main.temp;
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((res) => {
-      const latitude = res.coords.latitude;
-      const longitude = res.coords.longitude;
-      dispatch(fetchWeatherData(latitude, longitude));
-      dispatch(fetchCityName(longitude, latitude));
-    });
-  }, []);
 
   return (
     <div className="current-weather-container">
@@ -44,9 +49,9 @@ const CurrentWeather = () => {
       </div>
       <div className="overview-weather-container">
         <img className="weather-icon" src={icon} alt="icon" />
-        {temperature && (
-          <Temperature temperatureInKelvin={temperature} role="-current" />
-        )}
+        <div className="current-temp-container">
+          {temperature && <Temperature temperature={temperature} />}
+        </div>
       </div>
     </div>
   );

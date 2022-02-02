@@ -7,6 +7,7 @@ import { LocationType } from "./locationReducer";
 export type ForecastPanelType = LocationForecastType & {
   id: string;
   placeName: string;
+  order: number;
 };
 
 type InitialStateType = ForecastPanelType[];
@@ -25,7 +26,7 @@ export const forecastReducer = (
         return [...state];
       }
       // replace then!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      const copy = [...state, action.payload];
+      const copy = [...state, { ...action.payload, order: state.length }];
 
       console.log(copy);
       return copy;
@@ -34,6 +35,11 @@ export const forecastReducer = (
 
     case "REMOVE-FORECAST-PANEL":
       return state.filter((pl) => pl.id !== action.id);
+
+    case "CHANGE-ORDER-FORECAST-PANEL":
+      return state.map((pl) =>
+        pl.id === action.id ? { ...pl, order: action.order } : pl
+      );
 
     default:
       return state;
@@ -56,6 +62,14 @@ export const removeForecastPanel = (id: string) => {
   return {
     type: "REMOVE-FORECAST-PANEL",
     id,
+  } as const;
+};
+
+export const changeOrderForecastPanel = (id: string, order: number) => {
+  return {
+    type: "CHANGE-ORDER-FORECAST-PANEL",
+    id,
+    order,
   } as const;
 };
 

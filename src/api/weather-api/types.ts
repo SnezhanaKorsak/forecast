@@ -39,7 +39,7 @@ export interface DailyForecastType {
   wind_speed: number;
   wind_deg: number;
   wind_gust: number;
-  weather: WeatherType;
+  weather: WeatherType[];
   clouds: number;
 }
 

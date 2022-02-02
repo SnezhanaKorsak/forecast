@@ -13,19 +13,24 @@ const CurrentWeatherConditions = () => {
     AppRootStateType,
     GetWeatherResponseType | null
   >((state) => state.currentWeather.data);
-  const temperatureFeelsLike = currentWeather
-    ? currentWeather?.main.feels_like
-    : 0;
-  const weatherDescription = currentWeather?.weather[0].description;
-  const windSpeed = currentWeather && currentWeather.wind.speed;
   const windUnits = useSelector<AppRootStateType, string>(
     (state) => state.units.windUnits
   );
-  const humidity = currentWeather && currentWeather.main.humidity;
+
+  if (!currentWeather) {
+    return null;
+  }
+
+  const temperatureFeelsLike = currentWeather.main.feels_like;
+  const weatherDescription = currentWeather.weather[0].description;
+  const windSpeed = currentWeather.wind.speed;
+  const humidity = currentWeather.main.humidity;
   const visibility =
-    currentWeather && +(currentWeather.visibility / 1000).toFixed(1);
-  const pressure = currentWeather && currentWeather.main.pressure;
-  const cloudiness = currentWeather && currentWeather.clouds.all;
+    +(currentWeather.visibility / 1000) <= 1
+      ? +(currentWeather.visibility / 1000).toFixed(2)
+      : +(currentWeather.visibility / 1000).toFixed(1);
+  const pressure = currentWeather.main.pressure;
+  const cloudiness = currentWeather.clouds.all;
 
   const conditions: ConditionsType[] = [
     { id: 1, name: "WIND", value: windSpeed, units: windUnits },
@@ -34,7 +39,7 @@ const CurrentWeatherConditions = () => {
     { id: 4, name: "PRESSURE", value: pressure, units: "hPa" },
     { id: 5, name: "CLOUDINESS", value: cloudiness, units: "%" },
   ];
-  const conditionItem = conditions.map((m) => (
+  const conditionItems = conditions.map((m) => (
     <ConditionItem
       key={m.id}
       conditionName={m.name}
@@ -48,14 +53,15 @@ const CurrentWeatherConditions = () => {
         <div className="summary-content">
           <div className="weather-description">{weatherDescription}</div>
           <span>Feels like: </span>
-          <Temperature
-            temperatureInKelvin={temperatureFeelsLike}
-            role="-feelsLike"
-          />
+          <div className="conditions-temp-container">
+            {temperatureFeelsLike && (
+              <Temperature temperature={temperatureFeelsLike} />
+            )}
+          </div>
         </div>
       </div>
       <div className="conditions-items">
-        {conditionItem}
+        {conditionItems}
         <TemperatureToggle />
       </div>
     </>

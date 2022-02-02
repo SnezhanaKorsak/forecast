@@ -4,12 +4,8 @@
   display: flex;
   flex-flow: row wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   height: 100%;
   padding: 10px;
   color: black;
-
-  @media (max-width: $desktopScreen) {
-    justify-content: flex-start;
-  }
 }

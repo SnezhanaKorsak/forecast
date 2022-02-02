@@ -63,7 +63,7 @@ const CityWeather: React.FC<CityWeatherProps> = ({ panelId, setActive }) => {
       <div className="forecast-label">
         <div>{placeName}</div>
         <div className="forecast-temp">
-          {temp && <Temperature temperatureInKelvin={temp} />}
+          {temp && <Temperature temperature={temp} />}
         </div>
         <div className="forecast-time">{zonedTime}</div>
         <div className="buttons">

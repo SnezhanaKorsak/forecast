@@ -3,7 +3,10 @@ import "./styles.scss";
 import { Toggle } from "../../common/Toggle";
 import { useDispatch, useSelector } from "react-redux";
 import { AppRootStateType } from "../../state/store";
-import { changeTemperatureUnits } from "../../state/unitsReducer";
+import {
+  changeTemperatureUnits,
+  TemperatureUnit,
+} from "../../state/unitsReducer";
 
 const TemperatureToggle = () => {
   const dispatch = useDispatch();
@@ -16,8 +19,8 @@ const TemperatureToggle = () => {
   const changeTempUnits = () => {
     setInCelsius(!inCelsius);
     inCelsius
-      ? dispatch(changeTemperatureUnits("°C"))
-      : dispatch(changeTemperatureUnits("°F"));
+      ? dispatch(changeTemperatureUnits(TemperatureUnit.Celsius))
+      : dispatch(changeTemperatureUnits(TemperatureUnit.Fahrenheit));
   };
 
   return (

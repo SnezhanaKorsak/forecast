@@ -14,7 +14,7 @@ import ForecastGraph from "../ForecastGraph";
 import ForecastMap from "../ForecastMap";
 import { AppRootStateType } from "../../../state/store";
 
-export const enum RoutePath {
+export enum RoutePath {
   Table = "/forecast-table",
   Graph = "/forecast-graph",
   Map = "/forecast-map",
@@ -25,14 +25,14 @@ export const ForecastPanel: React.FC<ForecastPanelProps> = ({ panelId }) => {
   const forecastPanels = useSelector<AppRootStateType, ForecastPanelType[]>(
     (state) => state.forecast
   );
+
+  const [active, setActive] = useState<boolean>(true);
+
   const currentForecast = forecastPanels.find((pl) => pl.id === panelId);
 
   if (!currentForecast) {
     return null;
   }
-
-  const [active, setActive] = useState<boolean>(true);
-  const timezone = currentForecast.timezone;
 
   const removePanel = () => {
     if (!active) {
@@ -42,7 +42,7 @@ export const ForecastPanel: React.FC<ForecastPanelProps> = ({ panelId }) => {
 
   return (
     <div
-      className={`forecast-panel-container ${active ? "" : "mod-hiding"}`}
+      className={`forecast-panel ${active ? "" : "mod-hiding"}`}
       onAnimationEnd={removePanel}
     >
       <Router>
@@ -51,22 +51,12 @@ export const ForecastPanel: React.FC<ForecastPanelProps> = ({ panelId }) => {
         <Routes>
           <Route
             path={"/"}
-            element={
-              <ForecastTable
-                currentForecast={currentForecast}
-                timezone={timezone}
-              />
-            }
+            element={<ForecastTable currentForecast={currentForecast} />}
           />
 
           <Route
             path={RoutePath.Table}
-            element={
-              <ForecastTable
-                currentForecast={currentForecast}
-                timezone={timezone}
-              />
-            }
+            element={<ForecastTable currentForecast={currentForecast} />}
           />
           <Route
             path={RoutePath.Graph}

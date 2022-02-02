@@ -1,7 +1,6 @@
 export interface ForecastItemProps {
   dt: number;
-  iconPath: string;
+  icon: string;
   dayTemp: number;
   nightTemp: number;
-  timezone: string;
 }

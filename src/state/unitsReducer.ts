@@ -1,12 +1,24 @@
 import { UnitsActionsType } from "./actionsTypes";
 
 type InitialStateType = {
-  temperatureUnits: "°C" | "°F";
-  windUnits: "m/s" | "km/h";
+  temperatureUnits: TemperatureUnit;
+  windUnits: WindUnit;
 };
+
+export enum TemperatureUnit {
+  Kelvin = "°K",
+  Celsius = "°C",
+  Fahrenheit = "°F",
+}
+
+export enum WindUnit {
+  Meters = "m/s",
+  Kilometers = "km/h",
+}
+
 const initialState: InitialStateType = {
-  temperatureUnits: "°C",
-  windUnits: "m/s",
+  temperatureUnits: TemperatureUnit.Celsius,
+  windUnits: WindUnit.Meters,
 };
 
 export const unitsReducer = (
@@ -22,7 +34,7 @@ export const unitsReducer = (
   }
 };
 
-export const changeTemperatureUnits = (value: "°C" | "°F") => {
+export const changeTemperatureUnits = (value: TemperatureUnit) => {
   return {
     type: "CHANGE-TEMPERATURE-UNITS",
     value,

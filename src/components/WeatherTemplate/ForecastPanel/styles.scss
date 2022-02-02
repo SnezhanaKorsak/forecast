@@ -1,6 +1,6 @@
 @import "../../../sass/variables";
 
-@keyframes fadeIn {
+@keyframes fadeInPanel {
   from {
     opacity: 0;
     transform: scale(0.9);
@@ -10,7 +10,7 @@
   }
 }
 
-@keyframes fadeOut {
+@keyframes fadeOutPanel {
   from {
     opacity: 1;
   }
@@ -20,24 +20,28 @@
   }
 }
 
-.forecast-panel-container {
+.forecast-panel {
   display: grid;
   grid-template-rows: 1fr 4fr 0.5fr;
-  width: 60%;
+  //width: 60%;
   height: 400px;
   border-radius: 7px;
   margin-bottom: 30px;
   box-shadow: $boxShadowPanel;
-  animation: fadeIn 600ms ease-in-out;
+  cursor: grab;
+  animation: fadeInPanel 600ms ease-in-out;
+
+  @media (max-width: $tableScreen) {
+    // min-height: 500px;
+    width: 90%;
+    margin: auto;
+  }
 
   //@media (min-width: $tableScreen) {
   //  width: 60%;
   //}
-  @media (max-width: $tableScreen) {
-    // min-height: 500px;
-    width: 90%;
-  }
+
   &.mod-hiding {
-    animation: fadeOut 600ms ease-in-out;
+    animation: fadeOutPanel 600ms ease-in-out;
   }
 }
