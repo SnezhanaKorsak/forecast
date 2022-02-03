@@ -1,6 +1,5 @@
 import React from "react";
 import "./styles.scss";
-import { Button } from "../../../common/Button";
 import { CityWeatherProps } from "./types";
 import { useDispatch, useSelector } from "react-redux";
 import { AppRootStateType } from "../../../state/store";
@@ -12,6 +11,10 @@ import {
 import { zonedTimeToUtc } from "date-fns-tz";
 import { ConditionsType } from "../../CurrentWeatherConditions/ConditionItem/types";
 import { Temperature } from "../../Temperature";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar as faStarSolid } from "@fortawesome/free-solid-svg-icons/faStar";
+import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
+import { faStar } from "@fortawesome/free-regular-svg-icons/faStar";
 
 const CityWeather: React.FC<CityWeatherProps> = ({ panelId, setActive }) => {
   const dispatch = useDispatch();
@@ -55,10 +58,6 @@ const CityWeather: React.FC<CityWeatherProps> = ({ panelId, setActive }) => {
     { id: 5, name: "CLOUDINESS", value: cloudiness, units: "%" },
   ];
 
-  /*const conditionsItem = currentLocationConditions.map(c => <ConditionItem key={c.id}
-                                                                               conditionName={c.name}
-                                                                               value={c.value}
-                                                                               units={c.units}/>)*/
   const conditionsItem = currentLocationConditions.map((c) => (
     <div key={c.id} className="condition-item">
       {c.name}: {c.value} {c.units}
@@ -74,8 +73,8 @@ const CityWeather: React.FC<CityWeatherProps> = ({ panelId, setActive }) => {
   };
 
   const favouriteClassName = isFavouriteStatus
-    ? "star-icon favourite"
-    : "star-icon";
+    ? "forecast-icons favourite"
+    : "forecast-icons";
 
   return (
     <div className="forecast-header">
@@ -85,14 +84,29 @@ const CityWeather: React.FC<CityWeatherProps> = ({ panelId, setActive }) => {
           {temp && <Temperature temperature={temp} />}
         </div>
         <div className="forecast-time">{zonedTime}</div>
+
         <div className="buttons">
-          <button className="star-btn" onClick={onClickHandler}>
-            <span className={favouriteClassName} />
-          </button>
-          <div className={"exit-btn"}>
-            <Button callback={() => setActive(false)}>
-              <span>×</span>
-            </Button>
+          <div className={favouriteClassName}>
+            {isFavouriteStatus ? (
+              <FontAwesomeIcon
+                icon={faStarSolid}
+                onClick={onClickHandler}
+                size={"lg"}
+              />
+            ) : (
+              <FontAwesomeIcon
+                icon={faStar}
+                onClick={onClickHandler}
+                size={"lg"}
+              />
+            )}
+          </div>
+          <div className={"forecast-icons"}>
+            <FontAwesomeIcon
+              icon={faTimes}
+              onClick={() => setActive(false)}
+              size={"lg"}
+            />
           </div>
         </div>
       </div>

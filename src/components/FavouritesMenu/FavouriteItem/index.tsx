@@ -1,12 +1,13 @@
 import React from "react";
 import "./styles.scss";
 import { FavouriteItemProps } from "./types";
-import { Button } from "../../../common/Button";
 import { useDispatch } from "react-redux";
 import {
   fetchDailyForecast,
   removeFromFavoriteLS,
 } from "../../../state/forecastReducer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
 
 const FavouriteItem: React.FC<FavouriteItemProps> = ({ favouriteItem }) => {
   const dispatch = useDispatch();
@@ -25,10 +26,12 @@ const FavouriteItem: React.FC<FavouriteItemProps> = ({ favouriteItem }) => {
       <div className="place-name" onClick={showForecast}>
         {favouriteItem.placeName}
       </div>
-      <div className={"exit-btn"}>
-        <Button callback={removeFavouriteItem}>
-          <span>×</span>
-        </Button>
+      <div className={"exit-icon"}>
+        <FontAwesomeIcon
+          icon={faTimes}
+          onClick={removeFavouriteItem}
+          size={"lg"}
+        />
       </div>
     </div>
   );

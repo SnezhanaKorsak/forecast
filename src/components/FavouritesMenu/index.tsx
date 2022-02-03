@@ -10,6 +10,8 @@ import {
   setToFavouriteListFromLS,
 } from "../../state/forecastReducer";
 import "./styles.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 
 export const FavouritesMenu: React.FC<FavoritesMenuProps> = ({ setActive }) => {
   const dispatch = useDispatch();
@@ -36,9 +38,13 @@ export const FavouritesMenu: React.FC<FavoritesMenuProps> = ({ setActive }) => {
       <SidebarHeader setActive={setActive}>
         <span className="favourite-title">
           <span>Favourites:</span>
-          <button className="delete-btn" onClick={clearFavourites}>
-            <span className={"delete-icon"} />
-          </button>
+          <div className={"trash-icon"}>
+            <FontAwesomeIcon
+              icon={faTrash}
+              onClick={clearFavourites}
+              size={"sm"}
+            />
+          </div>
         </span>
       </SidebarHeader>
       {favourites}

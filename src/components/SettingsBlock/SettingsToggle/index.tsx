@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import "./styles.scss";
 import Sidebar from "../../Sidebar";
 import { SettingsMenu } from "../SettingsMenu";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons/faBars";
 
 const SettingsToggle = () => {
   const [activeMode, setActiveMode] = useState<boolean>(false);
@@ -10,9 +11,9 @@ const SettingsToggle = () => {
 
   return (
     <div>
-      <button className="toggle-btn" onClick={onActiveMode}>
-        <span className="burger-icon" />
-      </button>
+      <div className="star-menu-icons">
+        <FontAwesomeIcon icon={faBars} onClick={onActiveMode} size={"2x"} />
+      </div>
       <Sidebar active={activeMode} setActive={setActiveMode}>
         <SettingsMenu setActive={setActiveMode} />
       </Sidebar>

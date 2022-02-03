@@ -1,3 +1,5 @@
+@import "../../../sass/variables";
+
 .sidebar-header {
   display: flex;
   justify-content: space-between;
@@ -6,18 +8,17 @@
   margin: 5px auto 10px;
   text-transform: uppercase;
 
-  .exit-btn button {
+  .exit-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 35px;
     height: 35px;
-    border: none;
-    cursor: pointer;
-    font-size: 2em;
-    color: white;
-    background: inherit;
 
     &:hover {
+      cursor: pointer;
       border-radius: 50%;
-      background: rgba(171, 172, 192, 0.5);
+      background: $bqcHoverColor;
     }
   }
 }

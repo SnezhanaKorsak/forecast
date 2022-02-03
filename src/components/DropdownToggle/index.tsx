@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import "./styles.scss";
 import { FavouritesMenu } from "../FavouritesMenu";
 import Sidebar from "../Sidebar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-regular-svg-icons/faStar";
 
 const DropdownToggle = () => {
   const [activeMode, setActiveMode] = useState<boolean>(false);
@@ -10,9 +11,9 @@ const DropdownToggle = () => {
 
   return (
     <div>
-      <button className="toggle-btn" onClick={onActiveMode}>
-        <span className="star-icon" />
-      </button>
+      <div className="star-menu-icons">
+        <FontAwesomeIcon icon={faStar} onClick={onActiveMode} size={"2x"} />
+      </div>
       <Sidebar active={activeMode} setActive={setActiveMode}>
         <FavouritesMenu setActive={setActiveMode} />
       </Sidebar>

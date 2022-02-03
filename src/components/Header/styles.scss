@@ -34,7 +34,6 @@
       display: grid;
       grid-column: 1 / auto;
       grid-row: 1 / auto;
-      //grid-template-columns: repeat(3, auto);
       grid-template-columns: 1.5fr 2fr 1.5fr;
       align-items: center;
       padding-top: 5px;
@@ -47,7 +46,6 @@
     .weather-conditions-container {
       grid-column: 1 / auto;
       display: grid;
-      //grid-template-columns: repeat(2, auto);
       grid-template-columns: 1.7fr 3.5fr;
       @media (max-width: 1550px) {
         grid-template-columns: 1.3fr 3.5fr;
