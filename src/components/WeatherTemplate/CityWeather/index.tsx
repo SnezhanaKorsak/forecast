@@ -112,7 +112,6 @@ const CityWeather: React.FC<CityWeatherProps> = ({ panelId, setActive }) => {
       </div>
       <div className="forecast-header-container">
         <div className="forecast-conditions">{conditionsItem}</div>
-        <span></span>
       </div>
     </div>
   );
