@@ -1,7 +1,6 @@
 import { Dispatch } from "redux";
 import { LocationActionsTypes } from "./actionsTypes";
 import { geocodingAPI } from "../api/geocoding-api/geocodingAPI";
-import { FeaturesType } from "../api/geocoding-api/types";
 import { CoordinatesType } from "../api/weather-api/types";
 
 export interface LocationType {
@@ -12,11 +11,9 @@ export interface LocationType {
 
 type InitialStateType = {
   currentCity: string;
-  location: null | LocationType;
 };
 const initialState: InitialStateType = {
   currentCity: "",
-  location: null,
 };
 
 export const locationReducer = (
@@ -26,19 +23,6 @@ export const locationReducer = (
   switch (action.type) {
     case "SET-CURRENT-CITY-NAME":
       return { ...state, currentCity: action.cityName };
-
-    case "SET-LOCATION":
-      return {
-        ...state,
-        location: {
-          id: action.location.id,
-          placeName: action.location.place_name,
-          coordinates: {
-            lon: action.location.geometry.coordinates[0],
-            lat: action.location.geometry.coordinates[1],
-          },
-        },
-      };
 
     default:
       return state;
@@ -50,13 +34,6 @@ export const setCurrentCity = (cityName: string) => {
   return {
     type: "SET-CURRENT-CITY-NAME",
     cityName,
-  } as const;
-};
-
-export const setSelectedLocation = (location: FeaturesType) => {
-  return {
-    type: "SET-LOCATION",
-    location,
   } as const;
 };
 

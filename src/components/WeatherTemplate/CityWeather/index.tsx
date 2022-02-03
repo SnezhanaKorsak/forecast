@@ -2,17 +2,22 @@ import React from "react";
 import "./styles.scss";
 import { Button } from "../../../common/Button";
 import { CityWeatherProps } from "./types";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppRootStateType } from "../../../state/store";
-import { ForecastPanelType } from "../../../state/forecastReducer";
+import {
+  addToFavoriteLS,
+  ForecastPanelType,
+  removeFromFavoriteLS,
+} from "../../../state/forecastReducer";
 import { zonedTimeToUtc } from "date-fns-tz";
 import { ConditionsType } from "../../CurrentWeatherConditions/ConditionItem/types";
-import { ConditionItem } from "../../CurrentWeatherConditions/ConditionItem";
 import { Temperature } from "../../Temperature";
 
 const CityWeather: React.FC<CityWeatherProps> = ({ panelId, setActive }) => {
+  const dispatch = useDispatch();
+
   const forecastPanels = useSelector<AppRootStateType, ForecastPanelType[]>(
-    (state) => state.forecast
+    (state) => state.forecast.forecastPanels
   );
 
   const currentPanel = forecastPanels.find((pl) => pl.id === panelId);
@@ -23,6 +28,8 @@ const CityWeather: React.FC<CityWeatherProps> = ({ panelId, setActive }) => {
 
   const placeName = currentPanel.placeName;
   const currentWeather = currentPanel.current;
+  const isFavouriteStatus = currentPanel.isFavourite;
+
   // get current time
   const dt = currentWeather.dt * 1000;
   const date = new Date(dt);
@@ -49,14 +56,26 @@ const CityWeather: React.FC<CityWeatherProps> = ({ panelId, setActive }) => {
   ];
 
   /*const conditionsItem = currentLocationConditions.map(c => <ConditionItem key={c.id}
-                                                                             conditionName={c.name}
-                                                                             value={c.value}
-                                                                             units={c.units}/>)*/
+                                                                               conditionName={c.name}
+                                                                               value={c.value}
+                                                                               units={c.units}/>)*/
   const conditionsItem = currentLocationConditions.map((c) => (
     <div key={c.id} className="condition-item">
       {c.name}: {c.value} {c.units}
     </div>
   ));
+
+  const onClickHandler = () => {
+    const { id, placeName, lat, lon } = currentPanel;
+
+    !isFavouriteStatus
+      ? dispatch(addToFavoriteLS(id, placeName, { lat, lon }))
+      : dispatch(removeFromFavoriteLS(id, placeName));
+  };
+
+  const favouriteClassName = isFavouriteStatus
+    ? "star-icon favourite"
+    : "star-icon";
 
   return (
     <div className="forecast-header">
@@ -67,8 +86,8 @@ const CityWeather: React.FC<CityWeatherProps> = ({ panelId, setActive }) => {
         </div>
         <div className="forecast-time">{zonedTime}</div>
         <div className="buttons">
-          <button className="star-btn">
-            <span className="star-icon" />
+          <button className="star-btn" onClick={onClickHandler}>
+            <span className={favouriteClassName} />
           </button>
           <div className={"exit-btn"}>
             <Button callback={() => setActive(false)}>

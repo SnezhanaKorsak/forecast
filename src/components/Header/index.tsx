@@ -1,6 +1,6 @@
 import React from "react";
 import CurrentWeather from "../CurrentWeather";
-import SearchField from "../SearchField";
+import SearchField from "../SearchField/index";
 import SettingBlock from "../SettingsBlock";
 import CurrentWeatherConditions from "../CurrentWeatherConditions";
 import "./styles.scss";

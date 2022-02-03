@@ -23,7 +23,7 @@ export enum RoutePath {
 export const ForecastPanel: React.FC<ForecastPanelProps> = ({ panelId }) => {
   const dispatch = useDispatch();
   const forecastPanels = useSelector<AppRootStateType, ForecastPanelType[]>(
-    (state) => state.forecast
+    (state) => state.forecast.forecastPanels
   );
 
   const [active, setActive] = useState<boolean>(true);

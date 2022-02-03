@@ -12,7 +12,7 @@ const WeatherTemplate = () => {
   const dispatch = useDispatch();
 
   const forecastPanels = useSelector<AppRootStateType, ForecastPanelType[]>(
-    (state) => state.forecast
+    (state) => state.forecast.forecastPanels
   );
 
   const [currentPanel, setCurrentPanel] = useState<null | ForecastPanelType>(
