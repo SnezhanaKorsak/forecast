@@ -6,6 +6,8 @@ import { fetchCityName } from "../../state/locationReducer";
 import { AppRootStateType } from "../../state/store";
 import { GetWeatherResponseType } from "../../api/weather-api/types";
 import { Temperature } from "../Temperature";
+import { Preloader } from "../../common/Preloader";
+import { LoadingStatusType } from "../../state/appReducer";
 
 const CurrentWeather = () => {
   const dispatch = useDispatch();
@@ -29,6 +31,9 @@ const CurrentWeather = () => {
   const cityName = useSelector<AppRootStateType, string>(
     (state) => state.location.currentCity
   );
+  const loadingStatus = useSelector<AppRootStateType, LoadingStatusType>(
+    (state) => state.app.isLoading
+  );
 
   if (currentWeather === null) {
     return null;
@@ -38,7 +43,7 @@ const CurrentWeather = () => {
     hour: "2-digit",
     minute: "2-digit",
   });
-  const temperature = currentWeather && currentWeather?.main.temp;
+  const temperature = currentWeather.main.temp;
 
   return (
     <div className="current-weather-container">
@@ -47,12 +52,16 @@ const CurrentWeather = () => {
         <div className="label-update-time">{time}</div>
         <div className="location-name">{cityName}</div>
       </div>
-      <div className="overview-weather-container">
-        <img className="weather-icon" src={icon} alt="icon" />
-        <div className="current-temp-container">
-          {temperature && <Temperature temperature={temperature} />}
+      {loadingStatus === "loading-weather" ? (
+        <Preloader />
+      ) : (
+        <div className="overview-weather-container">
+          <img className="weather-icon" src={icon} alt="icon" />
+          <div className="current-temp-container">
+            {temperature && <Temperature temperature={temperature} />}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

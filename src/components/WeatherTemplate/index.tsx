@@ -7,12 +7,17 @@ import {
   ForecastPanelType,
 } from "../../state/forecastReducer";
 import { ForecastPanel } from "./ForecastPanel";
+import { Preloader } from "../../common/Preloader";
+import { LoadingStatusType } from "../../state/appReducer";
 
 const WeatherTemplate = () => {
   const dispatch = useDispatch();
 
   const forecastPanels = useSelector<AppRootStateType, ForecastPanelType[]>(
     (state) => state.forecast.forecastPanels
+  );
+  const loadingStatus = useSelector<AppRootStateType, LoadingStatusType>(
+    (state) => state.app.isLoading
   );
 
   const [currentPanel, setCurrentPanel] = useState<null | ForecastPanelType>(
@@ -63,7 +68,7 @@ const WeatherTemplate = () => {
     </div>
   ));
 
-  return <>{panels}</>;
+  return <>{loadingStatus === "loading-forecast" ? <Preloader /> : panels}</>;
 };
 
 export default WeatherTemplate;

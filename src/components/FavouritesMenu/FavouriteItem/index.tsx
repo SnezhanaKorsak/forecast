@@ -4,7 +4,7 @@ import { FavouriteItemProps } from "./types";
 import { useDispatch } from "react-redux";
 import {
   fetchDailyForecast,
-  removeFromFavoriteLS,
+  removeFromFavouriteLS,
 } from "../../../state/forecastReducer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
@@ -13,7 +13,7 @@ const FavouriteItem: React.FC<FavouriteItemProps> = ({ favouriteItem }) => {
   const dispatch = useDispatch();
 
   const removeFavouriteItem = () => {
-    dispatch(removeFromFavoriteLS(favouriteItem.id, favouriteItem.placeName));
+    dispatch(removeFromFavouriteLS(favouriteItem.id, favouriteItem.placeName));
   };
 
   const showForecast = () => {

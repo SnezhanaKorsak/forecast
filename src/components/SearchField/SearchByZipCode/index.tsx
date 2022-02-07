@@ -6,6 +6,8 @@ import { Button } from "../../../common/Button";
 import { fetchDailyForecast } from "../../../state/forecastReducer";
 import { ZipCodeType } from "../types";
 import { FeaturesType } from "../../../api/geocoding-api/types";
+import { AxiosError } from "axios";
+import { setError } from "../../../state/appReducer";
 
 export const SearchByZipCode = () => {
   const dispatch = useDispatch();
@@ -27,12 +29,18 @@ export const SearchByZipCode = () => {
       getCoordinatesByZipCod(
         zipCode.postalCode,
         zipCode.countryCode.toUpperCase()
-      ).then((res) => {
-        if (res) {
-          setLocationForForecast(res.data.features[0]);
-          setDisabled(false);
-        }
-      });
+      )
+        .then((res) => {
+          if (res) {
+            setLocationForForecast(res.data.features[0]);
+            setDisabled(false);
+          } else {
+            throw new Error("Please check the ZIP code for the search");
+          }
+        })
+        .catch((error: AxiosError) => {
+          dispatch(setError(error.message));
+        });
     }
   }, [dispatch, zipCode]);
 

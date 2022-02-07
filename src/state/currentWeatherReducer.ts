@@ -2,6 +2,7 @@ import { GetWeatherResponseType } from "../api/weather-api/types";
 import { WeatherActionsTypes } from "./actionsTypes";
 import { Dispatch } from "redux";
 import { weatherAPI } from "../api/weather-api/weatherAPI";
+import { setError, setLoading } from "./appReducer";
 
 type InitialStateType = {
   data: GetWeatherResponseType | null;
@@ -49,11 +50,20 @@ export const setCurrentCity = (cityName: string) => {
 };
 export const fetchWeatherData = (lat: number, lon: number) => {
   return (dispatch: Dispatch) => {
-    weatherAPI.getCurrentWeatherByGeoCoordinates(lat, lon).then((res) => {
-      dispatch(setCurrentWeatherData(res.data));
-      dispatch(
-        setWeatherIcon(weatherAPI.getWeatherIcon(res.data.weather[0].icon))
-      );
-    });
+    dispatch(setLoading("loading-weather"));
+    weatherAPI
+      .getCurrentWeatherByGeoCoordinates(lat, lon)
+      .then((res) => {
+        dispatch(setCurrentWeatherData(res.data));
+        dispatch(
+          setWeatherIcon(weatherAPI.getWeatherIcon(res.data.weather[0].icon))
+        );
+      })
+      .catch((error) => {
+        dispatch(setError(error.message));
+      })
+      .finally(() => {
+        dispatch(setLoading("idle"));
+      });
   };
 };

@@ -1,13 +1,8 @@
 import { Dispatch } from "redux";
 import { LocationActionsTypes } from "./actionsTypes";
 import { geocodingAPI } from "../api/geocoding-api/geocodingAPI";
-import { CoordinatesType } from "../api/weather-api/types";
-
-export interface LocationType {
-  id: string;
-  placeName: string;
-  coordinates: CoordinatesType;
-}
+import { setError, setLoading } from "./appReducer";
+import { AxiosError } from "axios";
 
 type InitialStateType = {
   currentCity: string;
@@ -40,8 +35,17 @@ export const setCurrentCity = (cityName: string) => {
 // thunk
 export const fetchCityName = (lon: number, lat: number) => {
   return (dispatch: Dispatch) => {
-    geocodingAPI.searchPlaceByCoordinates(lon, lat).then((res) => {
-      dispatch(setCurrentCity(res.data.features[0].place_name));
-    });
+    dispatch(setLoading("loading-weather"));
+    geocodingAPI
+      .searchPlaceByCoordinates(lon, lat)
+      .then((res) => {
+        dispatch(setCurrentCity(res.data.features[0].place_name));
+      })
+      .catch((error: AxiosError) => {
+        dispatch(setError(error.message));
+      })
+      .finally(() => {
+        dispatch(setLoading("idle"));
+      });
   };
 };

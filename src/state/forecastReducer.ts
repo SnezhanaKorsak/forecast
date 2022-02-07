@@ -5,6 +5,8 @@ import {
 } from "../api/weather-api/types";
 import { Dispatch } from "redux";
 import { weatherAPI } from "../api/weather-api/weatherAPI";
+import { setError, setLoading } from "./appReducer";
+import { AxiosError } from "axios";
 
 export type ForecastPanelType = LocationForecastType & {
   id: string;
@@ -78,9 +80,9 @@ export const forecastReducer = (
 
     case "CHANGE-ORDER-FORECAST-PANEL":
       /*return state.map((pl) => pl.id === action.id ? {
-                ...pl,
-                order: action.order
-            } : pl)*/
+                      ...pl,
+                      order: action.order
+                  } : pl)*/
       return {
         ...state,
         forecastPanels: state.forecastPanels.map((pl) =>
@@ -102,9 +104,9 @@ export const forecastReducer = (
     case "ADD-TO-FAVOURITES-LIST": {
       /*   const inState = state.favouritesList.some((s) => s.id === action.favourites);
 
-               if (inState) {
-                   return {...state};
-               }*/
+                     if (inState) {
+                         return {...state};
+                     }*/
       return { ...state, favouritesList: [...action.favourites] };
     }
 
@@ -194,9 +196,18 @@ export const fetchDailyForecast = (
   coordinates: CoordinatesType
 ) => {
   return (dispatch: Dispatch) => {
-    weatherAPI.getDailyForecastByCoordinates({ ...coordinates }).then((res) => {
-      dispatch(addForecastPanel(res.data, id, placeName));
-    });
+    dispatch(setLoading("loading-forecast"));
+    weatherAPI
+      .getDailyForecastByCoordinates({ ...coordinates })
+      .then((res) => {
+        dispatch(addForecastPanel(res.data, id, placeName));
+      })
+      .catch((error: AxiosError) => {
+        dispatch(setError(error.message));
+      })
+      .finally(() => {
+        dispatch(setLoading("idle"));
+      });
   };
 };
 
@@ -211,7 +222,7 @@ export const setToFavouriteListFromLS = () => {
   };
 };
 
-export const addToFavoriteLS = (
+export const addToFavouriteLS = (
   id: string,
   placeName: string,
   coordinates: CoordinatesType
@@ -223,7 +234,7 @@ export const addToFavoriteLS = (
   };
 };
 
-export const removeFromFavoriteLS = (id: string, placeName: string) => {
+export const removeFromFavouriteLS = (id: string, placeName: string) => {
   return (dispatch: Dispatch) => {
     localStorage.removeItem(placeName);
     dispatch(removeFromFavouritesList(id));
@@ -231,7 +242,7 @@ export const removeFromFavoriteLS = (id: string, placeName: string) => {
   };
 };
 
-export const clearAllFavoritesListLS = () => {
+export const clearAllFavouritesListLS = () => {
   return (dispatch: Dispatch) => {
     localStorage.clear();
     if (localStorage.length === 0) {

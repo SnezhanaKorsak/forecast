@@ -5,7 +5,7 @@ import FavouriteItem from "./FavouriteItem";
 import { useDispatch, useSelector } from "react-redux";
 import { AppRootStateType } from "../../state/store";
 import {
-  clearAllFavoritesListLS,
+  clearAllFavouritesListLS,
   FavouriteType,
   setToFavouriteListFromLS,
 } from "../../state/forecastReducer";
@@ -30,7 +30,7 @@ export const FavouritesMenu: React.FC<FavoritesMenuProps> = ({ setActive }) => {
   ));
 
   const clearFavourites = () => {
-    dispatch(clearAllFavoritesListLS());
+    dispatch(clearAllFavouritesListLS());
   };
 
   return (

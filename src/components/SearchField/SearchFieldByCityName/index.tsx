@@ -5,6 +5,8 @@ import { useDispatch } from "react-redux";
 import { fetchDailyForecast } from "../../../state/forecastReducer";
 import { getLocationsByName } from "../../../services/location-service";
 import { FeaturesType } from "../../../api/geocoding-api/types";
+import { AxiosError } from "axios";
+import { setError } from "../../../state/appReducer";
 
 export const SearchFieldByCityName = () => {
   const dispatch = useDispatch();
@@ -19,9 +21,16 @@ export const SearchFieldByCityName = () => {
     const selectedLocation = locations.find((f) => f.place_name === address);
 
     if (!selectedLocation && address !== "") {
-      getLocationsByName(address).then((res) =>
-        setLocations(res.data.features)
-      );
+      getLocationsByName(address)
+        .then((res) => {
+          setLocations(res.data.features);
+          if (res.data.features.length === 0) {
+            throw new Error("Please check the address for the search");
+          }
+        })
+        .catch((error: AxiosError) => {
+          dispatch(setError(error.message));
+        });
       setDisabled(true);
     }
 

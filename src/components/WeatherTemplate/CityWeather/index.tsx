@@ -4,9 +4,9 @@ import { CityWeatherProps } from "./types";
 import { useDispatch, useSelector } from "react-redux";
 import { AppRootStateType } from "../../../state/store";
 import {
-  addToFavoriteLS,
+  addToFavouriteLS,
   ForecastPanelType,
-  removeFromFavoriteLS,
+  removeFromFavouriteLS,
 } from "../../../state/forecastReducer";
 import { zonedTimeToUtc } from "date-fns-tz";
 import { ConditionsType } from "../../CurrentWeatherConditions/ConditionItem/types";
@@ -15,6 +15,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as faStarSolid } from "@fortawesome/free-solid-svg-icons/faStar";
 import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
 import { faStar } from "@fortawesome/free-regular-svg-icons/faStar";
+import { CurrentForecastType } from "../../../api/weather-api/types";
+
+function getWeatherConditions(weather: CurrentForecastType) {
+  return {
+    temp: weather.temp,
+    windSpeed: weather.wind_speed,
+    pressure: weather.pressure,
+    humidity: weather.humidity,
+    cloudiness: weather.clouds,
+    visibility: +(weather.visibility / 1000).toFixed(2),
+  };
+}
 
 const CityWeather: React.FC<CityWeatherProps> = ({ panelId, setActive }) => {
   const dispatch = useDispatch();
@@ -33,7 +45,6 @@ const CityWeather: React.FC<CityWeatherProps> = ({ panelId, setActive }) => {
   const currentWeather = currentPanel.current;
   const isFavouriteStatus = currentPanel.isFavourite;
 
-  // get current time
   const dt = currentWeather.dt * 1000;
   const date = new Date(dt);
   const timeZone = currentPanel.timezone;
@@ -42,13 +53,8 @@ const CityWeather: React.FC<CityWeatherProps> = ({ panelId, setActive }) => {
     minute: "2-digit",
   });
 
-  //get current weather conditions
-  const temp = currentWeather.temp;
-  const windSpeed = currentWeather.wind_speed;
-  const pressure = currentWeather.pressure;
-  const humidity = currentWeather.humidity;
-  const cloudiness = currentWeather.clouds;
-  const visibility = +(currentWeather.visibility / 1000).toFixed(2);
+  const { temp, windSpeed, pressure, humidity, cloudiness, visibility } =
+    getWeatherConditions(currentWeather);
 
   const currentLocationConditions: ConditionsType[] = [
     { id: 1, name: "WIND", value: windSpeed, units: "m/s" },
@@ -68,8 +74,8 @@ const CityWeather: React.FC<CityWeatherProps> = ({ panelId, setActive }) => {
     const { id, placeName, lat, lon } = currentPanel;
 
     !isFavouriteStatus
-      ? dispatch(addToFavoriteLS(id, placeName, { lat, lon }))
-      : dispatch(removeFromFavoriteLS(id, placeName));
+      ? dispatch(addToFavouriteLS(id, placeName, { lat, lon }))
+      : dispatch(removeFromFavouriteLS(id, placeName));
   };
 
   const favouriteClassName = isFavouriteStatus

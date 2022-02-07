@@ -6,6 +6,8 @@ import { Button } from "../../../common/Button";
 import { CoordinatesType } from "../../../api/weather-api/types";
 import { debounce } from "lodash";
 import { FeaturesType } from "../../../api/geocoding-api/types";
+import { setError } from "../../../state/appReducer";
+import { AxiosError } from "axios";
 
 export const SearchFieldByCoordinates = () => {
   const dispatch = useDispatch();
@@ -16,16 +18,24 @@ export const SearchFieldByCoordinates = () => {
     useState<FeaturesType | null>(null);
   const [disabled, setDisabled] = useState<boolean>(true);
 
+  console.log(locationForForecast);
   useEffect(() => {
     if (
       coordinatesFromInput &&
       coordinatesFromInput.lon &&
       coordinatesFromInput.lat
     ) {
-      getLocationsByCoordinates({ ...coordinatesFromInput }).then((res) => {
-        setLocationForForecast(res.data.features[0]);
-        setDisabled(false);
-      });
+      getLocationsByCoordinates({ ...coordinatesFromInput })
+        .then((res) => {
+          setLocationForForecast(res.data.features[0]);
+          setDisabled(false);
+          if (res.data.features.length === 0) {
+            throw new Error("Please check the coordinates for the search");
+          }
+        })
+        .catch((error: AxiosError) => {
+          dispatch(setError(error.message));
+        });
     }
   }, [dispatch, coordinatesFromInput]);
 
@@ -38,6 +48,8 @@ export const SearchFieldByCoordinates = () => {
         lon: locationForForecast.geometry.coordinates[0],
       };
       dispatch(fetchDailyForecast(id, placeName, coordinates));
+    } else {
+      dispatch(setError("Please check the coordinates for the search"));
     }
   };
 

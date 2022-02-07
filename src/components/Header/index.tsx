@@ -12,6 +12,7 @@ const Header = () => {
       <div className="root-container">
         <div className="top-container">
           <CurrentWeather />
+
           <SearchField />
           <SettingBlock />
         </div>
