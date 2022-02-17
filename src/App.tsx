@@ -11,7 +11,6 @@ function App() {
   const error = useSelector<AppRootStateType, string | null>(
     (state) => state.app.error
   );
-
   return (
     <div className="wrapper">
       <Header />

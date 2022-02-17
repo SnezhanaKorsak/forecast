@@ -3,13 +3,14 @@ import { debounce } from "lodash";
 import { useDispatch } from "react-redux";
 import { getCoordinatesByZipCod } from "../../../services/location-service";
 import { Button } from "../../../common/Button";
-import { fetchDailyForecast } from "../../../state/forecastReducer";
-import { ZipCodeType } from "../types";
+import { SearchFieldPropsType, ZipCodeType } from "../types";
 import { FeaturesType } from "../../../api/geocoding-api/types";
 import { AxiosError } from "axios";
 import { setError } from "../../../state/appReducer";
 
-export const SearchByZipCode = () => {
+export const SearchByZipCode: React.FC<SearchFieldPropsType> = ({
+  getForecast,
+}) => {
   const dispatch = useDispatch();
 
   const [zipCode, setZipCode] = useState<ZipCodeType>({
@@ -54,16 +55,8 @@ export const SearchByZipCode = () => {
     1000
   );
 
-  const getForecast = () => {
-    if (locationForForecast) {
-      const id = locationForForecast.id;
-      const placeName = locationForForecast.place_name;
-      const coordinates = {
-        lat: locationForForecast.geometry.coordinates[1],
-        lon: locationForForecast.geometry.coordinates[0],
-      };
-      dispatch(fetchDailyForecast(id, placeName, coordinates));
-    }
+  const callbackHandler = () => {
+    getForecast(locationForForecast);
   };
 
   return (
@@ -84,7 +77,7 @@ export const SearchByZipCode = () => {
           />
         </div>
       </div>
-      <Button callback={getForecast} disabled={disabled}>
+      <Button callback={callbackHandler} disabled={disabled}>
         <span>SEARCH</span>
       </Button>
     </div>

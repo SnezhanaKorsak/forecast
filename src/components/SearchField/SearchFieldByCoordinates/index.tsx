@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { fetchDailyForecast } from "../../../state/forecastReducer";
 import { getLocationsByCoordinates } from "../../../services/location-service";
 import { Button } from "../../../common/Button";
 import { CoordinatesType } from "../../../api/weather-api/types";
@@ -8,8 +7,11 @@ import { debounce } from "lodash";
 import { FeaturesType } from "../../../api/geocoding-api/types";
 import { setError } from "../../../state/appReducer";
 import { AxiosError } from "axios";
+import { SearchFieldPropsType } from "../types";
 
-export const SearchFieldByCoordinates = () => {
+export const SearchFieldByCoordinates: React.FC<SearchFieldPropsType> = ({
+  getForecast,
+}) => {
   const dispatch = useDispatch();
 
   const [coordinatesFromInput, setCoordinatesFromInput] =
@@ -18,7 +20,6 @@ export const SearchFieldByCoordinates = () => {
     useState<FeaturesType | null>(null);
   const [disabled, setDisabled] = useState<boolean>(true);
 
-  console.log(locationForForecast);
   useEffect(() => {
     if (
       coordinatesFromInput &&
@@ -39,18 +40,8 @@ export const SearchFieldByCoordinates = () => {
     }
   }, [dispatch, coordinatesFromInput]);
 
-  const getForecast = () => {
-    if (locationForForecast) {
-      const id = locationForForecast.id;
-      const placeName = locationForForecast.place_name;
-      const coordinates = {
-        lat: locationForForecast.geometry.coordinates[1],
-        lon: locationForForecast.geometry.coordinates[0],
-      };
-      dispatch(fetchDailyForecast(id, placeName, coordinates));
-    } else {
-      dispatch(setError("Please check the coordinates for the search"));
-    }
+  const callbackHandler = () => {
+    getForecast(locationForForecast);
   };
 
   const setCoordinatesHandler = debounce(
@@ -78,7 +69,7 @@ export const SearchFieldByCoordinates = () => {
           />
         </div>
       </div>
-      <Button callback={getForecast} disabled={disabled}>
+      <Button callback={callbackHandler} disabled={disabled}>
         <span>SEARCH</span>
       </Button>
     </div>

@@ -2,9 +2,6 @@ import React from "react";
 import "./styles.scss";
 import { ForecastItemProps } from "./types";
 import { Temperature } from "../../../Temperature";
-import { useSelector } from "react-redux";
-import { AppRootStateType } from "../../../../state/store";
-import { LoadingStatusType } from "../../../../state/appReducer";
 import { Preloader } from "../../../../common/Preloader";
 
 export const ForecastItem: React.FC<ForecastItemProps> = ({
@@ -13,10 +10,10 @@ export const ForecastItem: React.FC<ForecastItemProps> = ({
   nightTemp,
   icon,
 }) => {
-  const loadingStatus = useSelector<AppRootStateType, LoadingStatusType>(
+  /*const loadingStatus = useSelector<AppRootStateType, LoadingStatusType>(
     (state) => state.app.isLoading
   );
-
+*/
   const date = new Date(dt * 1000).toLocaleString("en-GB", {
     day: "numeric",
     month: "2-digit",

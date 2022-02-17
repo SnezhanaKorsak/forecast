@@ -25,13 +25,12 @@ type InitialStateType = {
   forecastPanels: ForecastPanelType[];
   favouritesList: FavouriteType[];
 };
-//const cachedFavourites = localStorage.getItem("favourites")
 
 const initialState: InitialStateType = {
   forecastPanels: [],
   favouritesList: [],
 };
-// favourites: cachedFavourites ? JSON.parse(cachedFavourites) : [],
+
 export const forecastReducer = (
   state = initialState,
   action: ForecastActionsType
@@ -47,11 +46,9 @@ export const forecastReducer = (
         return { ...state };
       }
 
-      const isFavourite = action.payload.placeName in localStorage;
-
+      const isFavourite = action.payload.id in localStorage;
       // replace then!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-      //const copy = [...state, {...action.payload, order: state.length, isFavourite: false}];
       const copy = {
         ...state,
         forecastPanels: [
@@ -67,10 +64,8 @@ export const forecastReducer = (
       console.log(copy);
       return copy;
     }
-    //return [...state, action.payload]
 
     case "REMOVE-FORECAST-PANEL":
-      //return state.filter((pl) => pl.id !== action.id)
       return {
         ...state,
         forecastPanels: state.forecastPanels.filter(
@@ -79,10 +74,6 @@ export const forecastReducer = (
       };
 
     case "CHANGE-ORDER-FORECAST-PANEL":
-      /*return state.map((pl) => pl.id === action.id ? {
-                      ...pl,
-                      order: action.order
-                  } : pl)*/
       return {
         ...state,
         forecastPanels: state.forecastPanels.map((pl) =>
@@ -91,7 +82,6 @@ export const forecastReducer = (
       };
 
     case "CHANGE-FAVOURITE-STATUS":
-      // return state.map(pl => pl.id === action.id ? {...pl, isFavourite: action.isFavouriteStatus} : pl)
       return {
         ...state,
         forecastPanels: state.forecastPanels.map((pl) =>
@@ -102,11 +92,6 @@ export const forecastReducer = (
       };
 
     case "ADD-TO-FAVOURITES-LIST": {
-      /*   const inState = state.favouritesList.some((s) => s.id === action.favourites);
-
-                     if (inState) {
-                         return {...state};
-                     }*/
       return { ...state, favouritesList: [...action.favourites] };
     }
 
@@ -216,7 +201,9 @@ export const setToFavouriteListFromLS = () => {
     const keysLS = Object.keys(localStorage);
     const favouritesList = keysLS.map((key) => {
       const cachedFavourites = localStorage.getItem(key);
-      return cachedFavourites ? JSON.parse(cachedFavourites) : null;
+      return cachedFavourites
+        ? { ...JSON.parse(cachedFavourites), id: key }
+        : null;
     });
     dispatch(addToFavouritesList(favouritesList));
   };
@@ -228,15 +215,15 @@ export const addToFavouriteLS = (
   coordinates: CoordinatesType
 ) => {
   return (dispatch: Dispatch) => {
-    const favouriteItem = { id, placeName, coordinates };
-    localStorage.setItem(placeName, JSON.stringify(favouriteItem));
+    const favouriteItem = { placeName, coordinates };
+    localStorage.setItem(id, JSON.stringify(favouriteItem));
     dispatch(changeFavouriteStatus(true, id));
   };
 };
 
-export const removeFromFavouriteLS = (id: string, placeName: string) => {
+export const removeFromFavouriteLS = (id: string) => {
   return (dispatch: Dispatch) => {
-    localStorage.removeItem(placeName);
+    localStorage.removeItem(id);
     dispatch(removeFromFavouritesList(id));
     dispatch(changeFavouriteStatus(false, id));
   };
@@ -245,9 +232,7 @@ export const removeFromFavouriteLS = (id: string, placeName: string) => {
 export const clearAllFavouritesListLS = () => {
   return (dispatch: Dispatch) => {
     localStorage.clear();
-    if (localStorage.length === 0) {
-      dispatch(addToFavouritesList([]));
-      dispatch(changeAllFavouritesStatuses());
-    }
+    dispatch(addToFavouritesList([]));
+    dispatch(changeAllFavouritesStatuses());
   };
 };

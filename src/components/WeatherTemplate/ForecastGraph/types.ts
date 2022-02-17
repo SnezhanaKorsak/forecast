@@ -1,5 +1,10 @@
-import { ForecastPanelType } from "../../../state/forecastReducer";
+import { ForecastGraphItemType } from "../ForecastPanel/types";
 
 export interface ForecastGraphProps {
-  currentForecast: ForecastPanelType;
+  forecastGraphItems: ForecastGraphItemType[];
+  removeItem: (placeName: string) => void;
+}
+
+export interface ForecastData {
+  [x: string]: number;
 }

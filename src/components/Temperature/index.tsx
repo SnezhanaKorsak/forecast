@@ -5,10 +5,10 @@ import { useSelector } from "react-redux";
 import { AppRootStateType } from "../../state/store";
 import { TemperatureUnit } from "../../state/unitsReducer";
 
-const conversionToCelsius = (temperature: number) => {
+export const conversionToCelsius = (temperature: number) => {
   return Math.round(temperature - 273.15);
 };
-const conversionToFahrenheit = (temperature: number) => {
+export const conversionToFahrenheit = (temperature: number) => {
   return Math.round(((temperature - 273.15) * 9) / 5 + 32);
 };
 
@@ -26,7 +26,7 @@ export const Temperature: React.FC<TemperatureProps> = ({ temperature }) => {
   return (
     <div className="temp">
       {temperature}
-      <sup className="unit">{temperatureUnits}</sup>
+      <span>{temperatureUnits}</span>
     </div>
   );
 };

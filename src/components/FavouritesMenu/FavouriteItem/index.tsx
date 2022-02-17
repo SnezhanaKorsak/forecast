@@ -13,7 +13,7 @@ const FavouriteItem: React.FC<FavouriteItemProps> = ({ favouriteItem }) => {
   const dispatch = useDispatch();
 
   const removeFavouriteItem = () => {
-    dispatch(removeFromFavouriteLS(favouriteItem.id, favouriteItem.placeName));
+    dispatch(removeFromFavouriteLS(favouriteItem.id));
   };
 
   const showForecast = () => {
@@ -26,7 +26,7 @@ const FavouriteItem: React.FC<FavouriteItemProps> = ({ favouriteItem }) => {
       <div className="place-name" onClick={showForecast}>
         {favouriteItem.placeName}
       </div>
-      <div className={"exit-icon"}>
+      <div className="exit-icon">
         <FontAwesomeIcon
           icon={faTimes}
           onClick={removeFavouriteItem}

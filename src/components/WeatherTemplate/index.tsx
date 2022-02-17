@@ -25,14 +25,14 @@ const WeatherTemplate = () => {
   );
 
   const dragStartHandler = (
-    e: React.DragEvent<HTMLDivElement>,
+    event: React.DragEvent<HTMLDivElement>,
     panel: ForecastPanelType
   ) => {
     setCurrentPanel(panel);
   };
 
-  const dragOverHandler = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
+  const dragOverHandler = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
   };
 
   const dropHandler = (
@@ -60,9 +60,9 @@ const WeatherTemplate = () => {
     <div
       key={panel.id}
       draggable={true}
-      onDragStart={(e) => dragStartHandler(e, panel)}
+      onDragStart={(event) => dragStartHandler(event, panel)}
       onDragOver={dragOverHandler}
-      onDrop={(e) => dropHandler(e, panel)}
+      onDrop={(event) => dropHandler(event, panel)}
     >
       <ForecastPanel panelId={panel.id} />
     </div>

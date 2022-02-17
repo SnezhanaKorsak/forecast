@@ -4,10 +4,10 @@
   @include text(1em, 0em, 600);
   display: inline;
   align-items: center;
-  margin-left: 5px;
+  margin: 0 5px;
 
-  .unit {
-    margin-left: 2px;
-    @include text(0.5em, 0, 400);
-  }
+  //.unit {
+  //  margin-left: 2px;
+  //  @include text(0.7em, 0, 400);
+  //}
 }

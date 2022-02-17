@@ -75,7 +75,7 @@ const CityWeather: React.FC<CityWeatherProps> = ({ panelId, setActive }) => {
 
     !isFavouriteStatus
       ? dispatch(addToFavouriteLS(id, placeName, { lat, lon }))
-      : dispatch(removeFromFavouriteLS(id, placeName));
+      : dispatch(removeFromFavouriteLS(id));
   };
 
   const favouriteClassName = isFavouriteStatus
@@ -107,7 +107,7 @@ const CityWeather: React.FC<CityWeatherProps> = ({ panelId, setActive }) => {
               />
             )}
           </div>
-          <div className={"forecast-icons"}>
+          <div className="forecast-icons">
             <FontAwesomeIcon
               icon={faTimes}
               onClick={() => setActive(false)}

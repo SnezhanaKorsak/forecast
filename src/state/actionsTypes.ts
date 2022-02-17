@@ -7,9 +7,9 @@ import { changeTemperatureUnits } from "./unitsReducer";
 import {
   addForecastPanel,
   addToFavouritesList,
+  changeAllFavouritesStatuses,
   changeFavouriteStatus,
   changeOrderForecastPanel,
-  changeAllFavouritesStatuses,
   removeForecastPanel,
   removeFromFavouritesList,
 } from "./forecastReducer";

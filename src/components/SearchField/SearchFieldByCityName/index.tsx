@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Button } from "../../../common/Button";
 import { debounce } from "lodash";
 import { useDispatch } from "react-redux";
-import { fetchDailyForecast } from "../../../state/forecastReducer";
 import { getLocationsByName } from "../../../services/location-service";
 import { FeaturesType } from "../../../api/geocoding-api/types";
 import { AxiosError } from "axios";
 import { setError } from "../../../state/appReducer";
+import { SearchFieldPropsType } from "../types";
 
-export const SearchFieldByCityName = () => {
+export const SearchFieldByCityName: React.FC<SearchFieldPropsType> = ({
+  getForecast,
+}) => {
   const dispatch = useDispatch();
 
   const [address, setAddress] = useState<string>("");
@@ -16,10 +18,10 @@ export const SearchFieldByCityName = () => {
   const [locationForForecast, setLocationForForecast] =
     useState<FeaturesType | null>(null);
   const [disabled, setDisabled] = useState<boolean>(true);
+  const [active, setActive] = useState<boolean>(false);
 
   useEffect(() => {
     const selectedLocation = locations.find((f) => f.place_name === address);
-
     if (!selectedLocation && address !== "") {
       getLocationsByName(address)
         .then((res) => {
@@ -48,32 +50,28 @@ export const SearchFieldByCityName = () => {
     <option key={l.id}>{l.place_name}</option>
   ));
 
-  const getForecast = () => {
-    if (locationForForecast) {
-      const id = locationForForecast.id;
-      const placeName = locationForForecast.place_name;
-      const coordinates = {
-        lat: locationForForecast.geometry.coordinates[1],
-        lon: locationForForecast.geometry.coordinates[0],
-      };
-      dispatch(fetchDailyForecast(id, placeName, coordinates));
-    }
+  const callbackHandler = () => {
+    getForecast(locationForForecast);
   };
+
+  const list = active ? "select-active" : "select";
 
   return (
     <div className="input-button-group">
       <div className="input-group">
         <div>
           <input
-            list="select"
+            list={list}
             className="search-byName"
             placeholder="Enter and select from the list"
+            onFocus={() => setActive(true)}
+            onBlur={() => setActive(false)}
             onChange={(e) => changeAddressHandler(e.currentTarget.value)}
           />
-          <datalist id="select">{mappedOptions}</datalist>
+          <datalist id={list}>{mappedOptions}</datalist>
         </div>
       </div>
-      <Button callback={getForecast} disabled={disabled}>
+      <Button callback={callbackHandler} disabled={disabled}>
         <span>SEARCH</span>
       </Button>
     </div>

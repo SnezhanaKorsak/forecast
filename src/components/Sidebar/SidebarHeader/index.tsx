@@ -11,7 +11,7 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
   return (
     <div className="sidebar-header">
       {children}
-      <div className={"exit-icon"}>
+      <div className="exit-icon">
         <FontAwesomeIcon
           icon={faTimes}
           onClick={() => setActive(false)}

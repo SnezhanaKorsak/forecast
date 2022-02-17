@@ -9,6 +9,37 @@
   box-shadow: $lineShadow;
   background: $bqcColor;
 
+  .field-compare {
+    margin-right: auto;
+
+    .input-button-group {
+      display: flex;
+      flex-direction: row;
+      width: 60px;
+      height: 30px;
+
+      .search-byName {
+        width: 350px;
+        height: 30px;
+        padding: 3px;
+        margin-right: 10px;
+        outline: none;
+        border: 1px solid #465774;
+        border-radius: 5px;
+      }
+      & button {
+        border-radius: 5px;
+        background: #465774;
+        color: white;
+
+        &:disabled {
+          background: #5e5c5c;
+          color: gray;
+        }
+      }
+    }
+  }
+
   .nav-link {
     display: flex;
     justify-content: space-between;

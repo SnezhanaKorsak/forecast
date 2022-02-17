@@ -38,7 +38,7 @@ export const FavouritesMenu: React.FC<FavoritesMenuProps> = ({ setActive }) => {
       <SidebarHeader setActive={setActive}>
         <span className="favourite-title">
           <span>Favourites:</span>
-          <div className={"trash-icon"}>
+          <div className="trash-icon">
             <FontAwesomeIcon
               icon={faTrash}
               onClick={clearFavourites}

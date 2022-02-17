@@ -1,0 +1,23 @@
+.popup-weather-description {
+  padding: 5px;
+
+  .popup-label {
+    width: auto;
+    height: 25px;
+    margin: -10px -10px 5px -10px;
+    border-radius: 12px 12px 0 0;
+    background: #465774;
+    color: white;
+    font-size: 16px;
+    line-height: 25px;
+
+    .temp {
+      margin-right: 5px;
+    }
+  }
+}
+
+.leaflet-popup-content {
+  width: 150px;
+  margin: 5px;
+}

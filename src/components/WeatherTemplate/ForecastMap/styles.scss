@@ -1,3 +1,8 @@
-.map-container {
-  color: black;
+.leaflet-grab {
+  cursor: pointer;
+}
+
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 500;
 }

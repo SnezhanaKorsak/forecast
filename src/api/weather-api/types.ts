@@ -29,6 +29,11 @@ export interface TempForecastType {
   night: number;
 }
 
+export interface SystemType {
+  id: number;
+  country: string;
+}
+
 export interface DailyForecastType {
   dt: number;
   temp: TempForecastType;
@@ -59,18 +64,16 @@ export interface CurrentForecastType {
 }
 
 export interface GetWeatherResponseType {
-  coordinates: CoordinatesType;
+  coord: CoordinatesType;
   weather: WeatherType[];
-  base: string;
   main: MainType;
   visibility: number;
   wind: WindType;
   clouds: { all: number };
   dt: number;
-  timezone: number;
   id: number;
+  sys: SystemType;
   name: string;
-  cod: number;
 }
 
 export interface LocationForecastType {
