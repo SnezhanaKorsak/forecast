@@ -86,7 +86,7 @@ export const ForecastPanel: React.FC<ForecastPanelProps> = ({ panelId }) => {
 
         <Routes>
           <Route
-            path={"/"}
+            path={"/forecast"}
             element={<ForecastTable currentForecast={currentForecast} />}
           />
 
