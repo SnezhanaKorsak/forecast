@@ -1,5 +1,5 @@
 import React from "react";
-import "./styles.scss";
+import { useTranslation } from "react-i18next";
 import { ConditionItem } from "./ConditionItem";
 import { ConditionsType } from "./ConditionItem/types";
 import { useSelector } from "react-redux";
@@ -7,15 +7,17 @@ import { AppRootStateType } from "../../state/store";
 import { GetWeatherResponseType } from "../../api/weather-api/types";
 import { Temperature } from "../Temperature";
 import TemperatureToggle from "../TemperatureToggle";
+import { WindSpeed } from "../WindSpeed";
+import { Pressure } from "../Pressure";
+import "./styles.scss";
 
 const CurrentWeatherConditions = () => {
   const currentWeather = useSelector<
     AppRootStateType,
     GetWeatherResponseType | null
   >((state) => state.currentWeather.data);
-  const windUnits = useSelector<AppRootStateType, string>(
-    (state) => state.units.windUnits
-  );
+
+  const { t } = useTranslation();
 
   if (!currentWeather) {
     return null;
@@ -33,11 +35,14 @@ const CurrentWeatherConditions = () => {
   const cloudiness = currentWeather.clouds.all;
 
   const conditions: ConditionsType[] = [
-    { id: 1, name: "WIND", value: windSpeed, units: windUnits },
-    { id: 2, name: "HUMIDITY", value: humidity, units: "%" },
-    { id: 3, name: "VISIBILITY", value: visibility, units: "km" },
-    { id: 4, name: "PRESSURE", value: pressure, units: "hPa" },
-    { id: 5, name: "CLOUDINESS", value: cloudiness, units: "%" },
+    { id: 1, name: t("conditions.humidity"), value: humidity, units: "%" },
+    {
+      id: 2,
+      name: t("conditions.visibility"),
+      value: visibility,
+      units: t("units.km"),
+    },
+    { id: 3, name: t("conditions.cloudiness"), value: cloudiness, units: "%" },
   ];
   const conditionItems = conditions.map((m) => (
     <ConditionItem
@@ -52,7 +57,7 @@ const CurrentWeatherConditions = () => {
       <div className="summary-caption-container">
         <div className="summary-content">
           <div className="weather-description">{weatherDescription}</div>
-          <span>Feels like: </span>
+          <span>{t("conditions.feelsLike")}</span>
           <div className="conditions-temp-container">
             {temperatureFeelsLike && (
               <Temperature temperature={temperatureFeelsLike} />
@@ -61,6 +66,14 @@ const CurrentWeatherConditions = () => {
         </div>
       </div>
       <div className="conditions-items">
+        <div className="condition">
+          <p className="condition-title">{t("conditions.wind")}</p>
+          <WindSpeed windSpeed={windSpeed} />
+        </div>
+        <div className="condition">
+          <p className="condition-title">{t("conditions.pressure")}</p>
+          <Pressure pressure={pressure} />
+        </div>
         {conditionItems}
         <TemperatureToggle />
       </div>

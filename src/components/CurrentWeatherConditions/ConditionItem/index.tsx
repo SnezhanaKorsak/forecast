@@ -1,6 +1,6 @@
 import React from "react";
-import "./styles.scss";
 import { ConditionItemProps } from "./types";
+import "./styles.scss";
 
 export const ConditionItem: React.FC<ConditionItemProps> = ({
   conditionName,
@@ -11,7 +11,7 @@ export const ConditionItem: React.FC<ConditionItemProps> = ({
 
   return (
     <div className="condition">
-      <p>{conditionName}</p>
+      <p className="condition-title">{conditionName}</p>
       <p>{conditionValue}</p>
     </div>
   );

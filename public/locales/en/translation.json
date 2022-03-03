@@ -1,0 +1,53 @@
+{
+  "title": {
+    "currentWeather": "Current weather",
+    "favourites": "Favourites:",
+    "settings": "Settings:"
+  },
+  "buttonNames": {
+    "cityName": "City name",
+    "coordinates": "Coordinates",
+    "ZIPCode": "ZIP code",
+    "search": "Search",
+    "table": "Table",
+    "graph": "Graph",
+    "worldMap": "Map",
+    "delete": "Delete"
+  },
+  "inputPlaceholder": {
+    "cityName": "Enter and select from the list",
+    "postalCode": "Postal code:",
+    "countryCode": "Country code:",
+    "lat": "lat:",
+    "lon": "lon"
+  },
+  "units": {
+    "measurement": "Units of measurement",
+    "ms": "m/s",
+    "kmh": "km/h",
+    "km": "km",
+    "hPa": "hPa",
+    "mmHg": "mmHg"
+  },
+  "conditions": {
+    "temperature": "Temperature",
+    "windSpeed": "Wind speed",
+    "wind": "Wind",
+    "pressure": "Pressure",
+    "humidity": "Humidity",
+    "visibility": "Visibility",
+    "cloudiness": "Cloudiness",
+    "feelsLike": "Feels like:"
+  },
+  "settings": {
+    "mode": "Mode",
+    "light-mode": "Light",
+    "dark-mode": "Dark",
+    "language": "Language",
+    "english": "English",
+    "russian": "Russian"
+  },
+  "errorMessages": {
+    "search": "Please check the parameters for the search"
+  }
+}

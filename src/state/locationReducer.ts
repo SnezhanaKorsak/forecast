@@ -1,7 +1,7 @@
 import { Dispatch } from "redux";
 import { LocationActionsTypes } from "./actionsTypes";
 import { geocodingAPI } from "../api/geocoding-api/geocodingAPI";
-import { setError, setLoading } from "./appReducer";
+import { setLoading, setRootError } from "./appReducer";
 import { AxiosError } from "axios";
 
 type InitialStateType = {
@@ -42,7 +42,7 @@ export const fetchCityName = (lon: number, lat: number) => {
         dispatch(setCurrentCity(res.data.features[0].place_name));
       })
       .catch((error: AxiosError) => {
-        dispatch(setError(error.message));
+        dispatch(setRootError(error.message));
       })
       .finally(() => {
         dispatch(setLoading("idle"));

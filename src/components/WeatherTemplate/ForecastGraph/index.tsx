@@ -1,10 +1,5 @@
 import React from "react";
-import "./styles.scss";
-import { ForecastData, ForecastGraphProps } from "./types";
-import { conversionToCelsius, conversionToFahrenheit } from "../../Temperature";
 import { useSelector } from "react-redux";
-import { AppRootStateType } from "../../../state/store";
-import { TemperatureUnit } from "../../../state/unitsReducer";
 import {
   CartesianGrid,
   Legend,
@@ -15,29 +10,40 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { conversionToCelsius, conversionToFahrenheit } from "../../Temperature";
+import { AppRootStateType } from "../../../state/store";
+import { TemperatureUnit } from "../../../state/unitsReducer";
 import { Payload } from "recharts/types/component/DefaultLegendContent";
+import { ForecastData, ForecastGraphProps } from "./types";
 import { DataKey } from "recharts/types/util/types";
+import "./styles.scss";
 
-/*const getRandomColor = () => {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}*/
+const getRandomLightColor = (index: number) => {
+  const colors = [
+    "#bb86fc",
+    "#03dac5",
+    "#4c0ade",
+    "#dc8e2c",
+    "#3e8d05",
+    "#ecdfd9",
+    "#b408b4",
+    "#c7304b",
+  ];
+  return colors[index];
+};
 
-const getRandomColor = () => {
+const getRandomDarkColor = (index: number) => {
   const colors = [
     "#B22222",
     "#006400",
-    "#483D8B",
+    "#2c17ad",
     "#FF8C00",
-    "#8B4513",
-    "#000000",
-    "#800080",
+    "#040426",
+    "#4b2612",
+    "#800980",
+    "#117e64",
   ];
-  return colors[Math.floor(Math.random() * 7)];
+  return colors[index];
 };
 
 const ForecastGraph: React.FC<ForecastGraphProps> = ({
@@ -46,6 +52,9 @@ const ForecastGraph: React.FC<ForecastGraphProps> = ({
 }) => {
   const temperatureUnits = useSelector<AppRootStateType, string>(
     (state) => state.units.temperatureUnits
+  );
+  const theme = useSelector<AppRootStateType, string>(
+    (state) => state.theme.themes
   );
   const dataKeys = forecastGraphItems.map(
     (item) => item.placeName.split(",")[0]
@@ -87,7 +96,7 @@ const ForecastGraph: React.FC<ForecastGraphProps> = ({
   });
 
   const removeItemHandler = (
-    data: Payload & { dataKey?: DataKey<any> | undefined }
+    data: Payload & { dataKey?: DataKey<string | number> | undefined }
   ) => {
     const { dataKey } = data;
     removeItem(String(dataKey));
@@ -104,14 +113,18 @@ const ForecastGraph: React.FC<ForecastGraphProps> = ({
           <XAxis dataKey="weakDay" />
           <YAxis />
           <Tooltip />
-          <Legend onClick={removeItemHandler} data-title="Delete this item" />
+          <Legend onClick={removeItemHandler} />
           <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-          {dataKeys.map((dataKey) => (
+          {dataKeys.map((dataKey, index) => (
             <Line
-              key={dataKey + 1}
+              key={dataKey + index}
               type="monotone"
               dataKey={dataKey}
-              stroke={getRandomColor()}
+              stroke={
+                theme === "light"
+                  ? getRandomDarkColor(index)
+                  : getRandomLightColor(index)
+              }
               activeDot={{ r: 8 }}
             />
           ))}

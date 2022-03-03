@@ -1,0 +1,19 @@
+@import "../../sass/mixins";
+@import "../../sass/variables";
+
+.collapsed-toggle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    cursor: pointer;
+    border-radius: 50%;
+    background: $bqcHoverColor;
+  }
+
+  .collapsed-toggle {
+    width: 35px;
+    height: 35px;
+  }
+}

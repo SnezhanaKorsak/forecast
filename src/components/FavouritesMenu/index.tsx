@@ -1,23 +1,26 @@
 import React, { useEffect } from "react";
-import { FavoritesMenuProps } from "./types";
+import { useDispatch, useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
+import { useTranslation } from "react-i18next";
 import { SidebarHeader } from "../Sidebar/SidebarHeader";
 import FavouriteItem from "./FavouriteItem";
-import { useDispatch, useSelector } from "react-redux";
 import { AppRootStateType } from "../../state/store";
 import {
   clearAllFavouritesListLS,
   FavouriteType,
   setToFavouriteListFromLS,
 } from "../../state/forecastReducer";
+
+import { FavoritesMenuProps } from "./types";
 import "./styles.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 
 export const FavouritesMenu: React.FC<FavoritesMenuProps> = ({ setActive }) => {
   const dispatch = useDispatch();
   const favouritesList = useSelector<AppRootStateType, FavouriteType[]>(
     (state) => state.forecast.favouritesList
   );
+  const { t } = useTranslation();
 
   const favouritesCounter = localStorage.length;
 
@@ -37,7 +40,7 @@ export const FavouritesMenu: React.FC<FavoritesMenuProps> = ({ setActive }) => {
     <div>
       <SidebarHeader setActive={setActive}>
         <span className="favourite-title">
-          <span>Favourites:</span>
+          <span>{t("title.favourites")}</span>
           <div className="trash-icon">
             <FontAwesomeIcon
               icon={faTrash}

@@ -1,8 +1,8 @@
 import { geocodingAPI } from "../api/geocoding-api/geocodingAPI";
 import { zipCodGeocodingAPI } from "../api/zipCodGeocoding-api/zipCodGeocodingAPI";
-import { resultByZipCod } from "./types";
 import { CoordinatesType } from "../api/weather-api/types";
 import { weatherAPI } from "../api/weather-api/weatherAPI";
+import { resultByZipCod } from "./types";
 
 export const getLocationsByName = (address: string) => {
   return geocodingAPI.searchByForwardGeocoding(address);
@@ -21,7 +21,9 @@ export const getCoordinatesByZipCod = (
     .then((res) => {
       const codes = res.data.query.codes;
       const results: resultByZipCod[] = res.data.results[codes[0]];
-      const currentResult = results.find((f) => f.country_code === countryCode);
+      const currentResult = results.find(
+        (f) => f.country_code === countryCode && f.postal_code === postalCode
+      );
 
       if (currentResult) {
         const lon = +currentResult.longitude;
@@ -50,4 +52,8 @@ export const getDailyWeather = ({ lat, lon }: CoordinatesType) => {
   return weatherAPI
     .getDailyForecastByCoordinates({ lat, lon })
     .then((res) => res.data.daily);
+};
+
+export const getTranslatedCityName = ({ lon, lat }: CoordinatesType) => {
+  return geocodingAPI.searchPlaceByCoordinates(lon, lat);
 };

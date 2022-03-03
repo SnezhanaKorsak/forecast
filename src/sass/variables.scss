@@ -5,15 +5,11 @@ $desktopScreen: 1265px;
 
 //color
 $bqcHoverColor: rgba(215, 215, 215, 0.25);
-$bqcFooterColor: linear-gradient(
-  90deg,
-  #d6d5da,
-  #a6b0b9,
-  #a6b0b9,
-  #a6b0b9,
-  #d5d5dd
-);
 $bqcColor: rgba(84, 98, 121, 0.4);
+
+//$bgcButtonActiveDark: #17171a;
+$bgcButton: rgba(171, 172, 192, 0.5);
+$bgcButtonDark: #233554;
 
 //shadow
 $lineShadow: 0 0 5px #000;

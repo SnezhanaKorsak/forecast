@@ -4,6 +4,7 @@ import {
   GetWeatherResponseType,
   CoordinatesType,
 } from "./types";
+import { getCurrentLanguage } from "../api-helpers";
 
 const APIkey = "912143a6f2471bc4aed9039a5dc6d512";
 const instance = axios.create({
@@ -12,8 +13,9 @@ const instance = axios.create({
 
 export const weatherAPI = {
   getCurrentWeatherByGeoCoordinates(lat: number, lon: number) {
+    const currentLanguage = getCurrentLanguage();
     return instance.get<GetWeatherResponseType>(
-      `weather?lat=${lat}&lon=${lon}&appid=${APIkey}`
+      `weather?lat=${lat}&lon=${lon}&appid=${APIkey}&lang=${currentLanguage}`
     );
   },
 

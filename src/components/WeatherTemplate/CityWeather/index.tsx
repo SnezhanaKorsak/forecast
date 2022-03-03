@@ -1,22 +1,25 @@
-import React from "react";
-import "./styles.scss";
-import { CityWeatherProps } from "./types";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { zonedTimeToUtc } from "date-fns-tz";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar as faStarSolid } from "@fortawesome/free-solid-svg-icons/faStar";
+import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
+import { faStar } from "@fortawesome/free-regular-svg-icons/faStar";
+import { useTranslation } from "react-i18next";
 import { AppRootStateType } from "../../../state/store";
 import {
   addToFavouriteLS,
   ForecastPanelType,
   removeFromFavouriteLS,
 } from "../../../state/forecastReducer";
-import { zonedTimeToUtc } from "date-fns-tz";
-import { ConditionsType } from "../../CurrentWeatherConditions/ConditionItem/types";
 import { Temperature } from "../../Temperature";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar as faStarSolid } from "@fortawesome/free-solid-svg-icons/faStar";
-import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
-import { faStar } from "@fortawesome/free-regular-svg-icons/faStar";
+import { WindSpeed } from "../../WindSpeed";
+import { Pressure } from "../../Pressure";
+import { getTranslatedCityName } from "../../../services/location-service";
+import { CityWeatherProps } from "./types";
+import { ConditionsType } from "../../CurrentWeatherConditions/ConditionItem/types";
 import { CurrentForecastType } from "../../../api/weather-api/types";
-
+import "./styles.scss";
 function getWeatherConditions(weather: CurrentForecastType) {
   return {
     temp: weather.temp,
@@ -35,13 +38,25 @@ const CityWeather: React.FC<CityWeatherProps> = ({ panelId, setActive }) => {
     (state) => state.forecast.forecastPanels
   );
 
+  const { t } = useTranslation();
+  const currentLanguage = localStorage.getItem("i18nextLng");
+
   const currentPanel = forecastPanels.find((pl) => pl.id === panelId);
+  const [placeName, setPlaceName] = useState(
+    currentPanel ? currentPanel.placeName : ""
+  );
+
+  useEffect(() => {
+    const { lon, lat } = currentPanel || { lon: 0, lat: 0 };
+    getTranslatedCityName({ lon, lat }).then((res) =>
+      setPlaceName(res.data.features[0].place_name)
+    );
+  }, [currentLanguage, currentPanel]);
 
   if (!currentPanel) {
     return null;
   }
 
-  const placeName = currentPanel.placeName;
   const currentWeather = currentPanel.current;
   const isFavouriteStatus = currentPanel.isFavourite;
 
@@ -57,21 +72,27 @@ const CityWeather: React.FC<CityWeatherProps> = ({ panelId, setActive }) => {
     getWeatherConditions(currentWeather);
 
   const currentLocationConditions: ConditionsType[] = [
-    { id: 1, name: "WIND", value: windSpeed, units: "m/s" },
-    { id: 2, name: "HUMIDITY", value: humidity, units: "%" },
-    { id: 3, name: "VISIBILITY", value: visibility, units: "km" },
-    { id: 4, name: "PRESSURE", value: pressure, units: "hPa" },
-    { id: 5, name: "CLOUDINESS", value: cloudiness, units: "%" },
+    { id: 1, name: t("conditions.humidity"), value: humidity, units: "%" },
+    {
+      id: 2,
+      name: t("conditions.visibility"),
+      value: visibility,
+      units: t("units.km"),
+    },
+    { id: 3, name: t("conditions.cloudiness"), value: cloudiness, units: "%" },
   ];
 
   const conditionsItem = currentLocationConditions.map((c) => (
     <div key={c.id} className="condition-item">
-      {c.name}: {c.value} {c.units}
+      <span className="condition-title">{c.name}:</span>
+      <span>
+        {c.value} {c.units}
+      </span>
     </div>
   ));
 
-  const onClickHandler = () => {
-    const { id, placeName, lat, lon } = currentPanel;
+  const onClickHandler = (placeName: string) => {
+    const { id, lat, lon } = currentPanel;
 
     !isFavouriteStatus
       ? dispatch(addToFavouriteLS(id, placeName, { lat, lon }))
@@ -96,13 +117,13 @@ const CityWeather: React.FC<CityWeatherProps> = ({ panelId, setActive }) => {
             {isFavouriteStatus ? (
               <FontAwesomeIcon
                 icon={faStarSolid}
-                onClick={onClickHandler}
+                onClick={() => onClickHandler(placeName)}
                 size={"lg"}
               />
             ) : (
               <FontAwesomeIcon
                 icon={faStar}
-                onClick={onClickHandler}
+                onClick={() => onClickHandler(placeName)}
                 size={"lg"}
               />
             )}
@@ -117,7 +138,17 @@ const CityWeather: React.FC<CityWeatherProps> = ({ panelId, setActive }) => {
         </div>
       </div>
       <div className="forecast-header-container">
-        <div className="forecast-conditions">{conditionsItem}</div>
+        <div className="forecast-conditions">
+          <div className="condition-item">
+            <p className="condition-title">{t("conditions.wind") + ":"}</p>
+            <WindSpeed windSpeed={windSpeed} />
+          </div>
+          <div className="condition-item">
+            <p className="condition-title">{t("conditions.pressure") + ":"}</p>
+            <Pressure pressure={pressure} />
+          </div>
+          {conditionsItem}
+        </div>
       </div>
     </div>
   );

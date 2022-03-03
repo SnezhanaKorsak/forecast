@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import "./styles.scss";
 import { useDispatch, useSelector } from "react-redux";
+import { ForecastPanel } from "./ForecastPanel";
+import { Preloader } from "../../common/Preloader";
 import { AppRootStateType } from "../../state/store";
 import {
   changeOrderForecastPanel,
   ForecastPanelType,
 } from "../../state/forecastReducer";
-import { ForecastPanel } from "./ForecastPanel";
-import { Preloader } from "../../common/Preloader";
 import { LoadingStatusType } from "../../state/appReducer";
 
 const WeatherTemplate = () => {
@@ -54,7 +53,7 @@ const WeatherTemplate = () => {
   };
 
   const sortPanels = (a: ForecastPanelType, b: ForecastPanelType) =>
-    a.order > b.order ? 1 : -1;
+    a.order < b.order ? 1 : -1;
 
   const panels = forecastPanels.sort(sortPanels).map((panel) => (
     <div

@@ -5,7 +5,7 @@ type InitialStateType = typeof initialState;
 
 const initialState = {
   isLoading: "idle" as LoadingStatusType,
-  error: null as string | null,
+  rootError: null as string | null,
 };
 
 export const appReducer = (
@@ -17,7 +17,7 @@ export const appReducer = (
       return { ...state, isLoading: action.isLoading };
 
     case "SET-ERROR":
-      return { ...state, error: action.error };
+      return { ...state, rootError: action.error };
 
     default:
       return state;
@@ -31,7 +31,7 @@ export const setLoading = (isLoading: LoadingStatusType) => {
   } as const;
 };
 
-export const setError = (error: string | null) => {
+export const setRootError = (error: string | null) => {
   return {
     type: "SET-ERROR",
     error,

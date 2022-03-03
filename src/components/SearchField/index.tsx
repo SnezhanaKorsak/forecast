@@ -1,20 +1,23 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { Button } from "../../common/Button";
-import "./styles.scss";
 import { ParamsSearchType } from "./types";
 import { SearchFieldByCoordinates } from "./SearchFieldByCoordinates";
 import { SearchByZipCode } from "./SearchByZipCode";
 import { SearchFieldByCityName } from "./SearchFieldByCityName";
 import { FeaturesType } from "../../api/geocoding-api/types";
 import { fetchDailyForecast } from "../../state/forecastReducer";
-import { setError } from "../../state/appReducer";
-import { useDispatch } from "react-redux";
+import { setRootError } from "../../state/appReducer";
+import "./styles.scss";
 
 const SearchField = () => {
   const dispatch = useDispatch();
 
   const [paramsSearch, setParamsSearch] =
     useState<ParamsSearchType>("cityName");
+
+  const { t } = useTranslation();
 
   const changeParamsForSearch = (value: ParamsSearchType) => {
     setParamsSearch(value);
@@ -28,28 +31,29 @@ const SearchField = () => {
         lat: locationForForecast.geometry.coordinates[1],
         lon: locationForForecast.geometry.coordinates[0],
       };
+
       dispatch(fetchDailyForecast(id, placeName, coordinates));
     } else {
-      dispatch(setError("Please  select one of the options in the list"));
+      dispatch(setRootError(t("errorMessages.search")));
     }
   };
 
   return (
-    <div className="search-container">
+    <div className={"search-container"}>
       <div className="button-group">
         <Button callback={() => changeParamsForSearch("cityName")}>
           <span className={paramsSearch === "cityName" ? "active" : ""}>
-            City name
+            {t("buttonNames.cityName")}
           </span>
         </Button>
         <Button callback={() => changeParamsForSearch("coordinates")}>
           <span className={paramsSearch === "coordinates" ? "active" : ""}>
-            Coordinates
+            {t("buttonNames.coordinates")}
           </span>
         </Button>
         <Button callback={() => changeParamsForSearch("zipCode")}>
           <span className={paramsSearch === "zipCode" ? "active" : ""}>
-            ZIP code
+            {t("buttonNames.ZIPCode")}
           </span>
         </Button>
       </div>

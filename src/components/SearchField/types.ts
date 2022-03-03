@@ -5,7 +5,7 @@ export interface ZipCodeType {
   countryCode: string;
 }
 
-export interface SearchFieldPropsType {
+export interface SearchFieldProps {
   getForecast: (locationForForecast: FeaturesType | null) => void;
 }
 

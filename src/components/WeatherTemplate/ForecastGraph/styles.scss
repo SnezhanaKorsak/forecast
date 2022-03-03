@@ -1,6 +1,7 @@
 .recharts-legend-item-text {
   cursor: pointer;
   position: relative;
+  margin-top: 5px;
 
   &:hover::after {
     position: absolute;

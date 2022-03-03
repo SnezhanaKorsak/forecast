@@ -3,7 +3,14 @@ import {
   setCurrentWeatherData,
   setWeatherIcon,
 } from "./currentWeatherReducer";
-import { changeTemperatureUnits } from "./unitsReducer";
+import {
+  changePressuredUnits,
+  setTemperatureUnits,
+  changeWindSpeedUnits,
+  changeTemperatureUnits,
+  setWindSpeedUnits,
+  setPressureUnits,
+} from "./unitsReducer";
 import {
   addForecastPanel,
   addToFavouritesList,
@@ -13,14 +20,21 @@ import {
   removeForecastPanel,
   removeFromFavouritesList,
 } from "./forecastReducer";
-import { setError, setLoading } from "./appReducer";
+import { setRootError, setLoading } from "./appReducer";
+import { changeTheme, setTheme } from "./themeReducer";
 
 export type WeatherActionsTypes =
   | SetCurrentWeatherDataActionType
   | SetWeatherIconActionType;
 export type LocationActionsTypes = SetCurrentCityActionType;
 
-export type UnitsActionsType = ChangeTemperatureUnitsActionType;
+export type UnitsActionsType =
+  | ChangeTemperatureUnitsActionType
+  | ChangeWindSpeedUnitsActionType
+  | ChangePressuredUnitsActionType
+  | SetTemperatureUnitsActionType
+  | SetWindSpeedUnitsActionType
+  | SetPressuredUnitsActionType;
 export type AppActionsType = SetLoadingActionType | SetErrorActionType;
 export type ForecastActionsType =
   | AddForecastPanelActionType
@@ -30,6 +44,8 @@ export type ForecastActionsType =
   | AddToFavouritesListActionType
   | RemoveFromFavouritesListActionType
   | ClearAllFavouritesListActionType;
+
+export type ThemeActionsType = ChangeThemeActionType | SetThemeActionType;
 
 // for WeatherActionsTypes
 type SetCurrentWeatherDataActionType = ReturnType<typeof setCurrentWeatherData>;
@@ -42,10 +58,15 @@ type SetCurrentCityActionType = ReturnType<typeof setCurrentCity>;
 type ChangeTemperatureUnitsActionType = ReturnType<
   typeof changeTemperatureUnits
 >;
+type ChangeWindSpeedUnitsActionType = ReturnType<typeof changeWindSpeedUnits>;
+type ChangePressuredUnitsActionType = ReturnType<typeof changePressuredUnits>;
+type SetTemperatureUnitsActionType = ReturnType<typeof setTemperatureUnits>;
+type SetWindSpeedUnitsActionType = ReturnType<typeof setWindSpeedUnits>;
+type SetPressuredUnitsActionType = ReturnType<typeof setPressureUnits>;
 
 // for AppActionsType
 type SetLoadingActionType = ReturnType<typeof setLoading>;
-type SetErrorActionType = ReturnType<typeof setError>;
+type SetErrorActionType = ReturnType<typeof setRootError>;
 
 // for ForecastActionsTypes
 type AddForecastPanelActionType = ReturnType<typeof addForecastPanel>;
@@ -61,3 +82,7 @@ type RemoveFromFavouritesListActionType = ReturnType<
 type ClearAllFavouritesListActionType = ReturnType<
   typeof changeAllFavouritesStatuses
 >;
+
+// for ThemeActionsTypes
+type ChangeThemeActionType = ReturnType<typeof changeTheme>;
+type SetThemeActionType = ReturnType<typeof setTheme>;

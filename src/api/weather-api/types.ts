@@ -29,7 +29,7 @@ export interface TempForecastType {
   night: number;
 }
 
-export interface SystemType {
+export interface CountryItem {
   id: number;
   country: string;
 }
@@ -72,7 +72,7 @@ export interface GetWeatherResponseType {
   clouds: { all: number };
   dt: number;
   id: number;
-  sys: SystemType;
+  sys: CountryItem;
   name: string;
 }
 

@@ -5,7 +5,7 @@ import {
 } from "../api/weather-api/types";
 import { Dispatch } from "redux";
 import { weatherAPI } from "../api/weather-api/weatherAPI";
-import { setError, setLoading } from "./appReducer";
+import { setLoading, setRootError } from "./appReducer";
 import { AxiosError } from "axios";
 
 export type ForecastPanelType = LocationForecastType & {
@@ -37,7 +37,6 @@ export const forecastReducer = (
 ): InitialStateType => {
   switch (action.type) {
     case "ADD-FORECAST-PANEL": {
-      // const inState = [...state].some((s) => s.id === action.payload.id);
       const inState = state.forecastPanels.some(
         (s) => s.id === action.payload.id
       );
@@ -47,22 +46,19 @@ export const forecastReducer = (
       }
 
       const isFavourite = action.payload.id in localStorage;
-      // replace then!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-      const copy = {
+      return {
         ...state,
         forecastPanels: [
-          ...state.forecastPanels,
           {
             ...action.payload,
             order: state.forecastPanels.length,
+            //order: 5,
             isFavourite: isFavourite,
           },
+          ...state.forecastPanels,
         ],
       };
-
-      console.log(copy);
-      return copy;
     }
 
     case "REMOVE-FORECAST-PANEL":
@@ -188,7 +184,7 @@ export const fetchDailyForecast = (
         dispatch(addForecastPanel(res.data, id, placeName));
       })
       .catch((error: AxiosError) => {
-        dispatch(setError(error.message));
+        dispatch(setRootError(error.message));
       })
       .finally(() => {
         dispatch(setLoading("idle"));
@@ -198,7 +194,9 @@ export const fetchDailyForecast = (
 
 export const setToFavouriteListFromLS = () => {
   return (dispatch: Dispatch) => {
-    const keysLS = Object.keys(localStorage);
+    const keysLS = Object.keys(localStorage).filter(
+      (key) => key.indexOf("place.") >= 0 || key.indexOf("region.") >= 0
+    );
     const favouritesList = keysLS.map((key) => {
       const cachedFavourites = localStorage.getItem(key);
       return cachedFavourites
@@ -231,7 +229,10 @@ export const removeFromFavouriteLS = (id: string) => {
 
 export const clearAllFavouritesListLS = () => {
   return (dispatch: Dispatch) => {
-    localStorage.clear();
+    const keysLS = Object.keys(localStorage).filter(
+      (key) => key.indexOf("place.") >= 0 || key.indexOf("region.") >= 0
+    );
+    keysLS.forEach((key) => localStorage.removeItem(key));
     dispatch(addToFavouritesList([]));
     dispatch(changeAllFavouritesStatuses());
   };

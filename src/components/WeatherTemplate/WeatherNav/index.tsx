@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./styles.scss";
 import { RoutePath } from "../ForecastPanel";
 import { SearchFieldByCityName } from "../../SearchField/SearchFieldByCityName";
 import { FeaturesType } from "../../../api/geocoding-api/types";
-import { setError } from "../../../state/appReducer";
+import { setRootError } from "../../../state/appReducer";
 import { useDispatch } from "react-redux";
 import { WeatherNavProps } from "./types";
 import { getDailyWeather } from "../../../services/location-service";
+import { useTranslation } from "react-i18next";
 
 const WeatherNav: React.FC<WeatherNavProps> = ({ addDailyForecast }) => {
   const dispatch = useDispatch();
 
   const [activeSearchField, setActiveSearchField] = useState<boolean>(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const url = window.location.toString();
@@ -34,7 +36,7 @@ const WeatherNav: React.FC<WeatherNavProps> = ({ addDailyForecast }) => {
         addDailyForecast(id, placeName, res)
       );
     } else {
-      dispatch(setError("Please check the parameters for the search"));
+      dispatch(setRootError(t("errorMessages.search")));
     }
   };
 
@@ -46,15 +48,22 @@ const WeatherNav: React.FC<WeatherNavProps> = ({ addDailyForecast }) => {
         </div>
       )}
       <div className="nav-link">
-        <Link to={RoutePath.Table} onClick={() => setActiveSearchField(false)}>
-          Table
-        </Link>
-        <Link to={RoutePath.Graph} onClick={() => setActiveSearchField(true)}>
-          Graph
-        </Link>
-        <Link to={RoutePath.Map} onClick={() => setActiveSearchField(false)}>
-          Map
-        </Link>
+        <NavLink
+          to={RoutePath.Table}
+          onClick={() => setActiveSearchField(false)}
+          className={({ isActive }) => (isActive ? "active" : "inactive")}
+        >
+          {t("buttonNames.table")}
+        </NavLink>
+        <NavLink
+          to={RoutePath.Graph}
+          onClick={() => setActiveSearchField(true)}
+        >
+          {t("buttonNames.graph")}
+        </NavLink>
+        <NavLink to={RoutePath.Map} onClick={() => setActiveSearchField(false)}>
+          {t("buttonNames.worldMap")}
+        </NavLink>
       </div>
     </div>
   );

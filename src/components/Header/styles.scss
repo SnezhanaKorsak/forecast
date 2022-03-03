@@ -1,58 +1,79 @@
 @import "../../sass/variables";
 
-.header {
-  width: 100%;
+.header-container {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: #191919;
-  box-shadow: $lineShadow;
 
-  .background-img {
-    position: absolute;
+  .header {
     width: 100%;
-    height: 100%;
-    background-image: url("../../assets/images/cloudy.jpeg");
-    background-size: cover;
-    background-position: center;
-    opacity: 75%;
-    z-index: 10;
+    background-color: var(--background-header);
+    box-shadow: $lineShadow;
+
+    .background-img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: url("../../assets/images/cloudy.jpeg");
+      background-size: cover;
+      background-position: center;
+      opacity: 75%;
+      z-index: 10;
+    }
+
+    .root-container {
+      position: relative;
+      z-index: 20;
+      margin: 0 20px;
+      grid-template-rows: repeat(2, auto);
+      width: auto;
+      @media (max-width: $phoneScreen) {
+        width: 340px;
+        margin: auto;
+        grid-template-rows: repeat(3, auto);
+      }
+
+      .top-container {
+        display: grid;
+        grid-column: 1 / auto;
+        grid-row: 1 / auto;
+        grid-template-columns: 1.5fr 2fr 1.5fr;
+        align-items: center;
+        padding-top: 5px;
+        margin-bottom: 10px;
+        @media (max-width: $desktopScreen) {
+          grid-template-columns: repeat(2, auto);
+        }
+      }
+
+      .weather-conditions-container {
+        grid-column: 1 / auto;
+        display: grid;
+        grid-template-columns: 1.7fr 3.5fr;
+        @media (max-width: 1550px) {
+          grid-template-columns: 1.3fr 3.5fr;
+        }
+        @media (max-width: $phoneScreen) {
+          grid-template-columns: 110px 2fr;
+        }
+      }
+    }
   }
 
-  .root-container {
-    position: relative;
-    z-index: 20;
-    margin: 0 20px;
-    grid-template-rows: repeat(2, auto);
-    width: auto;
-    @media (max-width: $phoneScreen) {
-      width: 340px;
-      margin: auto;
-      grid-template-rows: repeat(3, auto);
+  .header-toggle {
+    position: absolute;
+    bottom: -25px;
+    left: 15px;
+
+    &.mod-hiding {
+      transform: rotate(180deg);
     }
 
-    .top-container {
-      display: grid;
-      grid-column: 1 / auto;
-      grid-row: 1 / auto;
-      grid-template-columns: 1.5fr 2fr 1.5fr;
-      align-items: center;
-      padding-top: 5px;
-      margin-bottom: 10px;
-      @media (max-width: $desktopScreen) {
-        grid-template-columns: repeat(2, auto);
-      }
-    }
+    .collapsed-toggle-container {
+      color: var(--accent-color);
 
-    .weather-conditions-container {
-      grid-column: 1 / auto;
-      display: grid;
-      grid-template-columns: 1.7fr 3.5fr;
-      @media (max-width: 1550px) {
-        grid-template-columns: 1.3fr 3.5fr;
-      }
-      @media (max-width: $phoneScreen) {
-        grid-template-columns: 110px 2fr;
+      &:hover {
+        background: none;
       }
     }
   }

@@ -8,7 +8,7 @@
   border: 1px solid #465873;
   border-radius: 5px;
   margin: 5px;
-  color: #28374e;
+  color: var(--accent-color);
   padding: 5px;
   @media (max-width: $tableScreen) {
     width: 90px;
@@ -16,7 +16,7 @@
   }
 
   &.active {
-    border: 3px solid #465873;
+    border: 3px solid var(--accent-color);
   }
 
   .date-label {
@@ -37,6 +37,7 @@
       & img {
         margin-top: -5px;
         width: 200%;
+        filter: contrast(3);
       }
     }
 

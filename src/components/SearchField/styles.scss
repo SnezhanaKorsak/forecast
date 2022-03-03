@@ -26,10 +26,9 @@
 
     & .active {
       display: block;
-      width: 100%;
-      background: #465774;
+      background-color: var(--accent-background);
       transition: background 500ms;
-      //box-shadow:0 0 15px #f8f6f6;
+      color: var(--color-links);
     }
 
     & button {
@@ -39,7 +38,7 @@
       font-family: "Open Sans", sans-serif;
       color: #fff;
       border-radius: 5px;
-      background: rgba(171, 172, 192, 0.5);
+      background: $bgcButton;
       text-align: center;
       margin-bottom: 4px;
       cursor: pointer;
@@ -53,13 +52,15 @@
     .input-group {
       width: 65%;
 
-      .search-byName {
-        width: 100%;
-        outline: none;
-        padding-left: 5px;
+      .search-single {
+        & input {
+          width: 100%;
+          outline: none;
+          padding-left: 5px;
+        }
       }
 
-      .search-byCoordinates {
+      .search-double {
         display: flex;
         justify-content: space-between;
 
@@ -67,6 +68,12 @@
           width: 46%;
           outline: none;
           padding-left: 5px;
+        }
+      }
+
+      div[class~="error"] {
+        & input {
+          border: 2px solid red;
         }
       }
     }
@@ -78,7 +85,7 @@
       font-family: "Open Sans", sans-serif;
       color: #fff;
       border-radius: 5px;
-      background: rgba(171, 172, 192, 0.5);
+      background: $bgcButton;
       text-align: center;
       margin-bottom: 4px;
       cursor: pointer;
@@ -94,13 +101,14 @@
         border-radius: 5px;
         line-height: 25px;
       }
+
       &:active {
         background: #465774;
       }
 
       &:disabled {
-        color: gray;
-        cursor: auto;
+        cursor: not-allowed;
+        opacity: 0.5;
       }
 
       &:hover .block-hidden {

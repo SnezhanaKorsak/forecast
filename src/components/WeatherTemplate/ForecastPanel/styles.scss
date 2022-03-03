@@ -26,20 +26,20 @@
   grid-template-rows: 1fr 3fr 0.5fr;
   width: 740px;
   border-radius: 7px;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
+  background-color: var(--background-panel);
   box-shadow: $boxShadowPanel;
   cursor: grab;
   animation: fadeInPanel 600ms ease-in-out;
 
   @media (max-width: $tableScreen) {
-    // min-height: 500px;
     width: 90%;
-    margin: auto;
+    margin: 10px auto 30px auto;
   }
 
   @media (max-width: $phoneScreen) {
-    height: 400px;
-    grid-template-rows: 1fr 4fr 0.5fr;
+    height: 450px;
+    grid-template-rows: 1fr 4fr 1fr;
   }
 
   &.mod-hiding {

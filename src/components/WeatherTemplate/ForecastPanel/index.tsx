@@ -1,19 +1,19 @@
 import React, { useState } from "react";
-import "./styles.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import CityWeather from "../CityWeather";
 import ForecastTable from "../ForecastTable";
 import WeatherNav from "../WeatherNav";
-import { ForecastGraphItemType, ForecastPanelProps } from "./types";
-import { useDispatch, useSelector } from "react-redux";
+import ForecastGraph from "../ForecastGraph";
+import ForecastMap from "../ForecastMap";
 import {
   ForecastPanelType,
   removeForecastPanel,
 } from "../../../state/forecastReducer";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import ForecastGraph from "../ForecastGraph";
-import ForecastMap from "../ForecastMap";
 import { AppRootStateType } from "../../../state/store";
+import { ForecastGraphItem, ForecastPanelProps } from "./types";
 import { DailyForecastType } from "../../../api/weather-api/types";
+import "./styles.scss";
 
 export enum RoutePath {
   Table = "/forecast-table",
@@ -29,20 +29,24 @@ export const ForecastPanel: React.FC<ForecastPanelProps> = ({ panelId }) => {
 
   const currentForecast = forecastPanels.find((pl) => pl.id === panelId);
 
+  const [active, setActive] = useState<boolean>(true);
+  const [forecastGraphItems, setForecastGraphItems] = useState<
+    ForecastGraphItem[]
+  >(
+    currentForecast
+      ? [
+          {
+            id: currentForecast.id,
+            placeName: currentForecast.placeName,
+            daily: currentForecast.daily,
+          },
+        ]
+      : []
+  );
+
   if (!currentForecast) {
     return null;
   }
-
-  const [active, setActive] = useState<boolean>(true);
-  const [forecastGraphItems, setForecastGraphItems] = useState<
-    ForecastGraphItemType[]
-  >([
-    {
-      id: currentForecast.id,
-      placeName: currentForecast.placeName,
-      daily: currentForecast.daily,
-    },
-  ]);
 
   const removePanel = () => {
     if (!active) {
@@ -55,7 +59,7 @@ export const ForecastPanel: React.FC<ForecastPanelProps> = ({ panelId }) => {
     placeName: string,
     daily: DailyForecastType[]
   ) => {
-    const newForecastGraphItem: ForecastGraphItemType = {
+    const newForecastGraphItem: ForecastGraphItem = {
       id,
       placeName,
       daily,

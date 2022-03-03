@@ -2,7 +2,7 @@ import { GetWeatherResponseType } from "../api/weather-api/types";
 import { WeatherActionsTypes } from "./actionsTypes";
 import { Dispatch } from "redux";
 import { weatherAPI } from "../api/weather-api/weatherAPI";
-import { setError, setLoading } from "./appReducer";
+import { setRootError, setLoading } from "./appReducer";
 
 type InitialStateType = {
   data: GetWeatherResponseType | null;
@@ -60,7 +60,7 @@ export const fetchWeatherData = (lat: number, lon: number) => {
         );
       })
       .catch((error) => {
-        dispatch(setError(error.message));
+        dispatch(setRootError(error.message));
       })
       .finally(() => {
         dispatch(setLoading("idle"));

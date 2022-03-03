@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "../../../common/Button";
+import { useDispatch, useSelector } from "react-redux";
 import { debounce } from "lodash";
-import { useDispatch } from "react-redux";
+import { AxiosError } from "axios";
+import { useTranslation } from "react-i18next";
+import { Button } from "../../../common/Button";
 import { getLocationsByName } from "../../../services/location-service";
 import { FeaturesType } from "../../../api/geocoding-api/types";
-import { AxiosError } from "axios";
-import { setError } from "../../../state/appReducer";
-import { SearchFieldPropsType } from "../types";
+import { LoadingStatusType, setRootError } from "../../../state/appReducer";
+import { AppRootStateType } from "../../../state/store";
+import { SearchFieldProps } from "../types";
 
-export const SearchFieldByCityName: React.FC<SearchFieldPropsType> = ({
+export const SearchFieldByCityName: React.FC<SearchFieldProps> = ({
   getForecast,
 }) => {
   const dispatch = useDispatch();
@@ -19,30 +21,36 @@ export const SearchFieldByCityName: React.FC<SearchFieldPropsType> = ({
     useState<FeaturesType | null>(null);
   const [disabled, setDisabled] = useState<boolean>(true);
   const [active, setActive] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+
+  const loadingStatus = useSelector<AppRootStateType, LoadingStatusType>(
+    (state) => state.app.isLoading
+  );
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     const selectedLocation = locations.find((f) => f.place_name === address);
     if (!selectedLocation && address !== "") {
+      setDisabled(false);
       getLocationsByName(address)
         .then((res) => {
-          setLocations(res.data.features);
-          if (res.data.features.length === 0) {
-            throw new Error("Please check the address for the search");
+          if (res.data.features.length !== 0) {
+            setLocations(res.data.features);
           }
         })
         .catch((error: AxiosError) => {
-          dispatch(setError(error.message));
+          dispatch(setRootError(error.message));
         });
-      setDisabled(true);
     }
 
     if (selectedLocation) {
       setLocationForForecast(selectedLocation);
-      setDisabled(false);
     }
   }, [dispatch, address]);
 
   const changeAddressHandler = debounce((value: string) => {
+    setError(false);
     setAddress(value);
   }, 1000);
 
@@ -51,7 +59,12 @@ export const SearchFieldByCityName: React.FC<SearchFieldPropsType> = ({
   ));
 
   const callbackHandler = () => {
-    getForecast(locationForForecast);
+    if (locationForForecast) {
+      getForecast(locationForForecast);
+    } else {
+      setError(true);
+      dispatch(setRootError(t("errorMessages.search")));
+    }
   };
 
   const list = active ? "select-active" : "select";
@@ -59,20 +72,23 @@ export const SearchFieldByCityName: React.FC<SearchFieldPropsType> = ({
   return (
     <div className="input-button-group">
       <div className="input-group">
-        <div>
+        <div className={`search-single ${error ? "error" : ""}`}>
           <input
             list={list}
-            className="search-byName"
-            placeholder="Enter and select from the list"
+            placeholder={t("inputPlaceholder.cityName")}
             onFocus={() => setActive(true)}
             onBlur={() => setActive(false)}
             onChange={(e) => changeAddressHandler(e.currentTarget.value)}
+            disabled={loadingStatus !== "idle"}
           />
           <datalist id={list}>{mappedOptions}</datalist>
         </div>
       </div>
-      <Button callback={callbackHandler} disabled={disabled}>
-        <span>SEARCH</span>
+      <Button
+        callback={callbackHandler}
+        disabled={disabled || loadingStatus !== "idle"}
+      >
+        <span>{t("buttonNames.search")}</span>
       </Button>
     </div>
   );

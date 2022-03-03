@@ -1,7 +1,7 @@
 import React from "react";
-import "./styles.scss";
-import { ForecastTableProps } from "./types";
 import { ForecastItem } from "./ForecastItem";
+import { ForecastTableProps } from "./types";
+import "./styles.scss";
 
 const ForecastTable: React.FC<ForecastTableProps> = ({ currentForecast }) => {
   currentForecast.daily.length = 6;

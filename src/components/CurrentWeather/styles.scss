@@ -15,6 +15,7 @@
   .label-container {
     .label-weather {
       @include text(0.9rem, 1.5rem, 600);
+      text-transform: uppercase;
     }
 
     .label-update-time {
@@ -43,6 +44,10 @@
     .current-temp-container {
       font-size: 3.2rem;
       margin-left: -15px;
+      @media (max-width: $phoneScreen) {
+        font-size: 2.6rem;
+        margin-top: 7px;
+      }
     }
   }
 }

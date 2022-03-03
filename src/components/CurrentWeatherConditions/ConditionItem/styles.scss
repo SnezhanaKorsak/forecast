@@ -10,4 +10,8 @@
   margin: 0 0 10px 15px;
   padding-left: 10px;
   box-shadow: $boxShadow;
+
+  .condition-title {
+    text-transform: uppercase;
+  }
 }

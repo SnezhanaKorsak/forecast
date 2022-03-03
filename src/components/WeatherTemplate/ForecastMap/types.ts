@@ -2,7 +2,7 @@ import { ForecastPanelType } from "../../../state/forecastReducer";
 import {
   CoordinatesType,
   MainType,
-  SystemType,
+  CountryItem,
   WindType,
 } from "../../../api/weather-api/types";
 
@@ -16,6 +16,6 @@ export interface CurrentWeatherType {
   main: MainType;
   wind: WindType;
   clouds: { all: number };
-  sys: SystemType;
+  sys: CountryItem;
   name: string;
 }

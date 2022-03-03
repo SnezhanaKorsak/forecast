@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./styles.scss";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchWeatherData } from "../../state/currentWeatherReducer";
 import { fetchCityName } from "../../state/locationReducer";
@@ -8,9 +8,11 @@ import { GetWeatherResponseType } from "../../api/weather-api/types";
 import { Temperature } from "../Temperature";
 import { Preloader } from "../../common/Preloader";
 import { LoadingStatusType } from "../../state/appReducer";
+import "./styles.scss";
 
 const CurrentWeather = () => {
   const dispatch = useDispatch();
+  const currentLanguage = localStorage.getItem("i18nextLng");
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((res) => {
@@ -19,7 +21,7 @@ const CurrentWeather = () => {
       dispatch(fetchWeatherData(latitude, longitude));
       dispatch(fetchCityName(longitude, latitude));
     });
-  }, []);
+  }, [currentLanguage]);
 
   const currentWeather = useSelector<
     AppRootStateType,
@@ -35,6 +37,8 @@ const CurrentWeather = () => {
     (state) => state.app.isLoading
   );
 
+  const { t } = useTranslation();
+
   if (currentWeather === null) {
     return null;
   }
@@ -48,7 +52,7 @@ const CurrentWeather = () => {
   return (
     <div className="current-weather-container">
       <div className="label-container">
-        <div className="label-weather">CURRENT WEATHER</div>
+        <div className="label-weather">{t("title.currentWeather")}</div>
         <div className="label-update-time">{time}</div>
         <div className="location-name">{cityName}</div>
       </div>

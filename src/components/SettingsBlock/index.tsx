@@ -1,7 +1,7 @@
 import React from "react";
-import "./styles.scss";
 import DropdownToggle from "../DropdownToggle";
 import SettingsToggle from "./SettingsToggle";
+import "./styles.scss";
 
 const SettingBlock = () => {
   return (

@@ -5,7 +5,7 @@
   display: grid;
   grid-template-columns: repeat(2, auto);
   justify-content: start;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 
   .summary-content {
     @include text(0.9rem, 1rem, 400);
@@ -14,7 +14,7 @@
     align-items: center;
     background: $bqcColor;
     border-radius: 5px;
-    padding: 5px;
+    padding: 0 5px;
     box-shadow: $boxShadow;
   }
 

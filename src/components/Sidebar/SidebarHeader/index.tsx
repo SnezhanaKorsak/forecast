@@ -1,8 +1,8 @@
 import React from "react";
-import { SidebarHeaderProps } from "./types";
-import "./styles.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
+import { SidebarHeaderProps } from "./types";
+import "./styles.scss";
 
 export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
   children,
@@ -15,7 +15,7 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
         <FontAwesomeIcon
           icon={faTimes}
           onClick={() => setActive(false)}
-          size={"lg"}
+          size="lg"
         />
       </div>
     </div>

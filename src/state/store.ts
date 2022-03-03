@@ -5,6 +5,7 @@ import { locationReducer } from "./locationReducer";
 import { unitsReducer } from "./unitsReducer";
 import { forecastReducer } from "./forecastReducer";
 import { appReducer } from "./appReducer";
+import { themeReducer } from "./themeReducer";
 
 const rootReducer = combineReducers({
   currentWeather: currentWeatherReducer,
@@ -12,7 +13,7 @@ const rootReducer = combineReducers({
   location: locationReducer,
   units: unitsReducer,
   app: appReducer,
-  //settings: settingsReducer,
+  theme: themeReducer,
 });
 
 /*

@@ -1,35 +1,47 @@
 @import "../../sass/mixins";
 @import "../../sass/variables";
 
-.switch {
-  .track {
-    display: inline-block;
-    width: 100px;
-    height: 35px;
-    border-radius: 7px;
-    background: rgba(171, 172, 192, 0.5);
-    transition: background 1000ms;
+.toggle-container {
+  width: 100px;
+  height: 35px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  box-shadow: $boxShadow;
 
-    .thumb {
+  .switch {
+    .track {
       display: inline-block;
-      width: 35px;
+      width: 100px;
+      height: 35px;
       border-radius: 7px;
-      background: #465774;
-      text-align: center;
-      line-height: 35px;
-      transition: transform 400ms;
+      background: rgba(171, 172, 192, 0.5);
+      transition: background 1000ms;
 
-      &:hover {
-        cursor: pointer;
+      .thumb {
+        display: inline-block;
+        width: 45px;
+        height: 35px;
+        border-radius: 7px;
+        background-color: var(--accent-background);
+        text-align: center;
+        line-height: 35px;
+        transition: transform 400ms;
+        font-size: 14px;
+        overflow: hidden;
+
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
-  }
 
-  input:checked + .track {
-    background: rgba(54, 66, 86, 0.95);
+    input:checked + .track {
+      background: rgba(54, 66, 86, 0.95);
 
-    .thumb {
-      transform: translateX(66px);
+      .thumb {
+        transform: translateX(56px);
+      }
     }
   }
 }

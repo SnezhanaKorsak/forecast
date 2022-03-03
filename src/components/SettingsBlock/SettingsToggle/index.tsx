@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Sidebar from "../../Sidebar";
-import { SettingsMenu } from "../SettingsMenu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons/faBars";
+import Sidebar from "../../Sidebar";
+import { SettingsMenu } from "../SettingsMenu";
 
 const SettingsToggle = () => {
   const [activeMode, setActiveMode] = useState<boolean>(false);

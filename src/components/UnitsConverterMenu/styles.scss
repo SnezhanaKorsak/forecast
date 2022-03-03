@@ -1,0 +1,30 @@
+@import "../../sass/variables";
+
+.units-converter-block {
+  font-size: 20px;
+
+  .units-converter-block-label {
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .converter-items {
+    .units-converter {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 50px;
+      border-radius: 5px;
+      margin-top: 10px;
+      background: rgba(171, 172, 192, 0.2);
+      padding: 5px;
+
+      .temp-toggle-container,
+      .toggle-container {
+        margin: 5px 0 5px 0;
+      }
+    }
+  }
+}

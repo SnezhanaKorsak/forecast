@@ -4,7 +4,7 @@ export interface ForecastPanelProps {
   panelId: string;
 }
 
-export interface ForecastGraphItemType {
+export interface ForecastGraphItem {
   id: string;
   placeName: string;
   daily: DailyForecastType[];

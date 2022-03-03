@@ -1,0 +1,53 @@
+{
+  "title": {
+    "currentWeather": "Текущая погода",
+    "favourites": "Избранное:",
+    "settings": "Настройки:"
+  },
+  "buttonNames": {
+    "cityName": "Город",
+    "coordinates": "Координаты",
+    "ZIPCode": "ZIP код",
+    "search": "Поиск",
+    "table": "Таблица",
+    "graph": "График",
+    "worldMap": "Карта",
+    "delete": "Удалить"
+  },
+  "inputPlaceholder": {
+    "cityName": "Введите и выберите из списка",
+    "postalCode": "Индекс:",
+    "countryCode": "Код страны:",
+    "lat": "Широта:",
+    "lon": "Долгота:"
+  },
+  "units": {
+    "measurement": "Единицы измерения",
+    "ms": "м/с",
+    "kmh": "км/ч",
+    "km": "км",
+    "hPa": "ГПа",
+    "mmHg": "мм рт.ст."
+  },
+  "conditions": {
+    "temperature": "Температура",
+    "windSpeed": "Скорость ветра",
+    "wind": "Ветер",
+    "pressure": "Давление",
+    "humidity": "Влажность",
+    "visibility": "Видимость",
+    "cloudiness": "Облачность",
+    "feelsLike": "Ощущается как:"
+  },
+  "settings": {
+    "mode": "Режим",
+    "light-mode": "Светлый",
+    "dark-mode": "Темный",
+    "language": "Язык",
+    "english": "Английский",
+    "russian": "Русский"
+  },
+  "errorMessages": {
+    "search": "Пожалуйста, проверьте параметры для поиска"
+  }
+}

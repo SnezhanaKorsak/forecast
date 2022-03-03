@@ -1,8 +1,8 @@
-import React from "react";
-import "./styles.scss";
-import { ForecastItemProps } from "./types";
+import React, { useEffect, useState } from "react";
 import { Temperature } from "../../../Temperature";
 import { Preloader } from "../../../../common/Preloader";
+import { ForecastItemProps } from "./types";
+import "./styles.scss";
 
 export const ForecastItem: React.FC<ForecastItemProps> = ({
   dt,
@@ -10,17 +10,22 @@ export const ForecastItem: React.FC<ForecastItemProps> = ({
   nightTemp,
   icon,
 }) => {
-  /*const loadingStatus = useSelector<AppRootStateType, LoadingStatusType>(
-    (state) => state.app.isLoading
-  );
-*/
-  const date = new Date(dt * 1000).toLocaleString("en-GB", {
+  const currentLanguage = localStorage.getItem("i18nextLng");
+  const [language, setLanguage] = useState<string>("en");
+
+  useEffect(() => {
+    if (currentLanguage) {
+      setLanguage(currentLanguage);
+    }
+  }, [currentLanguage]);
+
+  const date = new Date(dt * 1000).toLocaleString(language, {
     day: "numeric",
     month: "2-digit",
     weekday: "short",
   });
 
-  const today = new Date(Date.now()).toLocaleString("en-GB", {
+  const today = new Date(Date.now()).toLocaleString("en", {
     day: "numeric",
     month: "2-digit",
     weekday: "short",
