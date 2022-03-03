@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CityWeather from "../CityWeather";
 import ForecastTable from "../ForecastTable";
 import WeatherNav from "../WeatherNav";
@@ -81,7 +81,7 @@ export const ForecastPanel: React.FC<ForecastPanelProps> = ({ panelId }) => {
       className={`forecast-panel ${active ? "" : "mod-hiding"}`}
       onAnimationEnd={removePanel}
     >
-      <Router>
+      <BrowserRouter>
         <CityWeather panelId={panelId} setActive={setActive} />
 
         <Routes>
@@ -110,7 +110,7 @@ export const ForecastPanel: React.FC<ForecastPanelProps> = ({ panelId }) => {
         </Routes>
 
         <WeatherNav addDailyForecast={addDailyForecast} />
-      </Router>
+      </BrowserRouter>
     </div>
   );
 };

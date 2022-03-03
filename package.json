@@ -1,5 +1,6 @@
 {
   "name": "weather-forecast",
+  "homepage": "https://SnezhanaKorsak.github.io/forecast",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -43,7 +44,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "browserslist": {
     "production": [
@@ -61,11 +64,11 @@
     "@svgr/webpack": "^6.2.1",
     "@types/leaflet": "^1.7.9",
     "@types/lodash": "^4.14.178",
-    "@types/react-transition-group": "^4.4.4",
     "@typescript-eslint/eslint-plugin": "^5.9.0",
     "@typescript-eslint/parser": "^5.9.0",
     "eslint": "^8.6.0",
     "eslint-plugin-react": "^7.28.0",
+    "gh-pages": "^3.2.3",
     "husky": "^7.0.4",
     "lint-staged": "^12.1.5",
     "prettier": "2.5.1"
